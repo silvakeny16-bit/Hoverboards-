@@ -7,30 +7,81 @@
 
 <style>
 body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#1d1d1d;
+    background:#1b1b1b;
     color:white;
+    font-family:Arial,sans-serif;
+    margin:0;
 }
+
 header{
-    background:#ff9800;
+    background:#ff7a00;
     padding:20px;
     text-align:center;
 }
-.card{
-    background:#2b2b2b;
-    margin:20px;
-    padding:20px;
-    border-radius:15px;
+
+input{
+    width:90%;
+    max-width:400px;
+    padding:10px;
+    border:none;
+    border-radius:8px;
 }
+
+nav{
+    background:#2a2a2a;
+    padding:10px;
+    text-align:center;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:15px;
+    font-weight:bold;
+}
+
+section{
+    padding:20px;
+}
+
 button{
-    background:#ff9800;
+    background:#ff7a00;
     color:white;
     border:none;
     padding:10px 20px;
-    border-radius:10px;
-    font-size:16px;
+    margin:5px;
+    border-radius:8px;
     cursor:pointer;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
+
+th,td{
+    border:1px solid #555;
+    padding:10px;
+    text-align:center;
+}
+
+th{
+    background:#ff7a00;
+}
+
+iframe{
+    width:100%;
+    height:315px;
+    border:none;
+    border-radius:10px;
+}
+
+footer{
+    text-align:center;
+    padding:20px;
+    background:#2a2a2a;
+    margin-top:30px;
 }
 </style>
 </head>
@@ -38,27 +89,67 @@ button{
 <body>
 
 <header>
-<h1>🪙 No Coin Hub</h1>
-<p>Desafios sem coletar moedas.</p>
+<h1>🏆 No Coin Hub</h1>
+<input type="search" placeholder="Pesquisar jogos...">
 </header>
 
-<div class="card">
+<nav>
+<a href="#subway">Subway Surfers</a>
+<a href="#videos">Vídeos</a>
+</nav>
+
+<section id="subway">
 <h2>Subway Surfers</h2>
-<p>Veja desafios, recordes e dicas para jogar sem pegar moedas.</p>
-<button>Entrar</button>
-</div>
 
-<div class="card">
-<h2>Recordes</h2>
-<p>Confira as melhores pontuações.</p>
-<button>Ver</button>
-</div>
+<button>No Coins</button>
+<button>Coins</button>
+<button>Mystery Hurdles</button>
 
-<div class="card">
-<h2>Dicas</h2>
-<p>Aprenda estratégias para evitar moedas.</p>
-<button>Ler</button>
-</div>
+<h3>Quadro de Líderes</h3>
+
+<table>
+<tr>
+<th>Posição</th>
+<th>Jogador</th>
+<th>Tempo</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>---</td>
+<td>--:--</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>---</td>
+<td>--:--</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>---</td>
+<td>--:--</td>
+</tr>
+
+</table>
+
+</section>
+
+<section id="videos">
+
+<h2>🎥 Meu Vídeo</h2>
+
+<iframe
+src="https://www.youtube.com/embed/4Zagi5VIwjU"
+allowfullscreen>
+</iframe>
+
+</section>
+
+<footer>
+© 2026 No Coin Hub
+</footer>
 
 </body>
 </html>
