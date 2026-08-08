@@ -3,65 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Meus Vídeos</title>
+
+<title>Keny Videos</title>
 
 <style>
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    background: #171717;
+    background: #0b0b0f;
     color: white;
     font-family: Arial, sans-serif;
 }
 
+/* TOPO */
 header {
-    background: #242424;
-    padding: 25px 20px;
+    padding: 22px;
+    background: #111118;
+    border-bottom: 1px solid #292936;
     text-align: center;
+}
+
+header h1 {
     font-size: 28px;
-    font-weight: bold;
 }
 
+header p {
+    color: #999;
+    margin-top: 6px;
+}
+
+/* CONTEÚDO */
 .container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+    width: 94%;
+    max-width: 850px;
+    margin: 25px auto;
 }
 
-.video {
-    background: #252525;
-    border-radius: 18px;
-    padding: 15px;
+/* CARD */
+.card {
+    background: #15151d;
+    border: 1px solid #292936;
+    border-radius: 20px;
+    overflow: hidden;
     margin-bottom: 25px;
-    box-shadow: 0 5px 20px #00000055;
 }
 
-.video h2 {
-    margin: 5px 0;
-    font-size: 21px;
+.info {
+    padding: 17px;
 }
 
-.video p {
-    margin-top: 5px;
-    color: #aaa;
+.info h2 {
+    font-size: 20px;
+    margin-bottom: 8px;
+}
+
+.info span {
+    color: #999;
+}
+
+/* VÍDEO */
+.video {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
 }
 
 .video iframe {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     border: 0;
-    border-radius: 14px;
-    margin-top: 12px;
 }
 
+/* BOTÃO */
+.button {
+    display: block;
+    margin-top: 15px;
+    padding: 13px;
+    text-align: center;
+    background: white;
+    color: black;
+    text-decoration: none;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+/* RODAPÉ */
 footer {
     text-align: center;
-    padding: 25px;
-    color: #aaa;
-    background: #242424;
+    padding: 30px;
+    color: #777;
 }
 </style>
 </head>
@@ -69,36 +103,65 @@ footer {
 <body>
 
 <header>
-🎥 Meus Vídeos
+    <h1>🎥 Keny Videos</h1>
+    <p>Meus melhores vídeos</p>
 </header>
 
 <div class="container">
 
-    <div class="video">
-        <h2>🏆 2h41m26s Top 1 Mobile</h2>
-        <p>👤 Keny</p>
+    <!-- VÍDEO 1 -->
+    <div class="card">
 
-        <iframe
-        src="https://www.youtube.com/embed/zd4tCr2BQFE"
-        allowfullscreen>
-        </iframe>
+        <div class="video">
+            <iframe
+                src="https://www.youtube.com/embed/zd4tCr2BQFE"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="info">
+            <h2>🏆 2h41m26s Top 1 Mobile</h2>
+            <span>👤 Keny</span>
+
+            <a class="button"
+               href="https://youtu.be/zd4tCr2BQFE"
+               target="_blank">
+               ▶ Assistir no YouTube
+            </a>
+        </div>
+
     </div>
 
-    <div class="video">
-        <h2>🎮 Segundo Vídeo</h2>
-        <p>👤 Keny</p>
 
-        <iframe
-        src="https://www.youtube.com/embed/T7ZcyiMj18M"
-        allowfullscreen>
-        </iframe>
+    <!-- VÍDEO 2 -->
+    <div class="card">
+
+        <div class="video">
+            <iframe
+                src="https://www.youtube.com/embed/T7ZcyiMj18M"
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <div class="info">
+            <h2>🎮 Segundo Vídeo</h2>
+            <span>👤 Keny</span>
+
+            <a class="button"
+               href="https://youtu.be/T7ZcyiMj18M"
+               target="_blank">
+               ▶ Assistir no YouTube
+            </a>
+        </div>
+
     </div>
 
 </div>
 
 <footer>
-© 2026 Keny • Todos os vídeos
+    © 2026 Keny Videos
 </footer>
 
 </body>
-  </html>
+</html>
+
