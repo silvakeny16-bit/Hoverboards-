@@ -1,12 +1,16 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Meus Vídeos</title>
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
@@ -15,42 +19,46 @@
     }
 
     header {
-      text-align: center;
-      padding: 25px;
       background: #1b1b1b;
+      padding: 25px 15px;
+      text-align: center;
+      border-bottom: 2px solid #333;
     }
 
-    h1 {
+    header h1 {
       margin: 0;
-      color: #fff;
+      font-size: 28px;
     }
 
-    .videos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 25px;
-      max-width: 1200px;
+    .container {
+      max-width: 900px;
       margin: auto;
+      padding: 20px;
     }
 
     .video {
-      background: #1d1d1d;
+      background: #1c1c1c;
+      padding: 15px;
+      margin-bottom: 25px;
       border-radius: 12px;
-      padding: 10px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    .video h2 {
+      font-size: 20px;
+      margin-top: 0;
     }
 
     iframe {
       width: 100%;
       aspect-ratio: 16 / 9;
       border: 0;
-      border-radius: 8px;
+      border-radius: 10px;
     }
 
-    h2 {
-      font-size: 18px;
-      margin: 10px 5px;
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #888;
     }
   </style>
 </head>
@@ -59,28 +67,9 @@
 
   <header>
     <h1>🎬 Meus Vídeos</h1>
-    <p>Confira meus vídeos aqui!</p>
   </header>
 
-  <main class="videos">
+  <div class="container">
 
     <div class="video">
-      <iframe
-        src="https://www.youtube.com/embed/T7ZcyiMj18M"
-        allowfullscreen>
-      </iframe>
-      <h2>Vídeo 1</h2>
-    </div>
-
-    <div class="video">
-      <iframe
-        src="https://www.youtube.com/embed/sVkXZuou2DM"
-        allowfullscreen>
-      </iframe>
-      <h2>Vídeo 2</h2>
-    </div>
-
-  </main>
-
-</body>
-</html>
+      <h2>
