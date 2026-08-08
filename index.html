@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,59 +7,38 @@
 
   <style>
     body {
-      margin: 0;
       background: #111;
       color: white;
-      font-family: Arial, sans-serif;
+      font-family: Arial;
+      text-align: center;
       padding: 20px;
     }
 
-    h1 {
-      text-align: center;
-    }
-
-    .video {
-      max-width: 800px;
-      margin: 25px auto;
+    a {
+      display: block;
       background: #222;
-      padding: 15px;
-      border-radius: 12px;
-    }
-
-    iframe {
-      width: 100%;
-      height: 450px;
-      border: none;
+      color: white;
+      padding: 20px;
+      margin: 20px auto;
+      max-width: 500px;
       border-radius: 10px;
-    }
-
-    @media (max-width: 600px) {
-      iframe {
-        height: 220px;
-      }
+      text-decoration: none;
+      font-size: 20px;
     }
   </style>
 </head>
 
 <body>
 
-  <h1>🎬 Meus Vídeos</h1>
+  <h1>🎬 MEUS VÍDEOS</h1>
 
-  <div class="video">
-    <h2>Vídeo 1</h2>
-    <iframe
-      src="https://www.youtube.com/embed/T7ZcyiMj18M"
-      allowfullscreen>
-    </iframe>
-  </div>
+  <a href="https://www.youtube.com/watch?v=T7ZcyiMj18M">
+    ▶️ Assistir Vídeo 1
+  </a>
 
-  <div class="video">
-    <h2>Vídeo 2</h2>
-    <iframe
-      src="https://www.youtube.com/embed/sVkXZuou2DM"
-      allowfullscreen>
-    </iframe>
-  </div>
+  <a href="https://www.youtube.com/watch?v=sVkXZuou2DM">
+    ▶️ Assistir Vídeo 2
+  </a>
 
 </body>
 </html>
