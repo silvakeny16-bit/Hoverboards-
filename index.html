@@ -1,1 +1,86 @@
 
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meus Vídeos</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 25px;
+      background: #1b1b1b;
+    }
+
+    h1 {
+      margin: 0;
+      color: #fff;
+    }
+
+    .videos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 25px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .video {
+      background: #1d1d1d;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    }
+
+    iframe {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      border: 0;
+      border-radius: 8px;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin: 10px 5px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>🎬 Meus Vídeos</h1>
+    <p>Confira meus vídeos aqui!</p>
+  </header>
+
+  <main class="videos">
+
+    <div class="video">
+      <iframe
+        src="https://www.youtube.com/embed/T7ZcyiMj18M"
+        allowfullscreen>
+      </iframe>
+      <h2>Vídeo 1</h2>
+    </div>
+
+    <div class="video">
+      <iframe
+        src="https://www.youtube.com/embed/sVkXZuou2DM"
+        allowfullscreen>
+      </iframe>
+      <h2>Vídeo 2</h2>
+    </div>
+
+  </main>
+
+</body>
+</html>
