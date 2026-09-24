@@ -2,943 +2,424 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>RunnerBoards — Subway Surfers</title>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-*{box-sizing:border-box}
-
 :root{
-  --red:#5c0000;
-  --red2:#8e0909;
-  --red3:#b31111;
-  --dark:#300000;
-  --text:#fff;
+  --red:#5c0000;--red2:#8e0909;--red3:#b31111;--dark:#300000;
+  --panel:rgba(84,0,0,.88);--line:rgba(255,255,255,.13);--text:#fff;
 }
-
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:#2b0000}
 body{
-  margin:0;
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
-  background:
-    radial-gradient(circle at 50% 20%,rgba(255,100,0,.25),transparent 30%),
-    linear-gradient(135deg,#bd1700,#690000 48%,#300000);
-  min-height:100vh;
+ background:
+ linear-gradient(180deg,rgba(65,0,0,.25),rgba(65,0,0,.86)),
+ radial-gradient(circle at 50% 35%,rgba(255,110,0,.25),transparent 30%),
+ linear-gradient(135deg,#bd1700 0%,#690000 45%,#3a0000 100%);
+ background-attachment:fixed;
 }
-
 button,input,select{font:inherit}
-
 button{cursor:pointer}
-
-.hero{
-  padding:18px 16px 0;
-  min-height:260px;
-  background:linear-gradient(180deg,rgba(125,0,0,.95),rgba(93,0,0,.72));
-}
-
-.topbar{
-  max-width:1100px;
-  margin:auto;
-  height:70px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.trophy{font-size:34px}
-
-.brand h1{
-  margin:0;
-  font-size:20px;
-}
-
-.brand small{opacity:.7}
-
-.menu{
-  background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.15);
-  color:white;
-  border-radius:8px;
-  padding:9px 14px;
-  font-size:22px;
-}
-
-.boardtitle{
-  max-width:1100px;
-  margin:42px auto 0;
-}
-
-.game{
-  display:inline-block;
-  background:#d03b2e;
-  padding:10px 17px;
-  border-radius:7px;
-  font-weight:bold;
-  font-size:20px;
-}
-
-.tabs{
-  max-width:1100px;
-  margin:35px auto 0;
-  display:flex;
-  gap:30px;
-}
-
-.tab{
-  padding:14px 0;
-  border:0;
-  background:none;
-  color:white;
-  font-size:18px;
-  font-weight:bold;
-}
-
-.tab.active{
-  border-bottom:3px solid white;
-}
-
-.wrap{
-  max-width:1100px;
-  margin:auto;
-  padding-bottom:40px;
-}
-
-.panel{
-  background:rgba(88,0,0,.86);
-  border:1px solid rgba(255,255,255,.1);
-  box-shadow:0 8px 30px rgba(0,0,0,.25);
-}
-
-.categories{
-  padding:20px 16px;
-}
-
-.cat{
-  background:#410000;
-  border:0;
-  color:white;
-  padding:11px 16px;
-  margin:0 7px 8px 0;
-  border-radius:6px;
-  font-weight:bold;
-}
-
-.cat.active{
-  background:#eee;
-  color:#333;
-}
-
-.controls{
-  display:flex;
-  gap:10px;
-  padding:14px 16px;
-  border-top:1px solid rgba(255,255,255,.1);
-  flex-wrap:wrap;
-}
-
-.controls select,
-.controls input{
-  background:#fff;
-  color:#222;
-  border:0;
-  border-radius:6px;
-  padding:11px;
-}
-
-.submit{
-  background:#eee;
-  color:#333;
-  border:0;
-  border-radius:7px;
-  padding:11px 18px;
-  font-weight:bold;
-}
-
-.table-wrap{
-  overflow-x:auto;
-}
-
-.table{
-  width:100%;
-  border-collapse:collapse;
-  min-width:720px;
-}
-
-.table th{
-  text-align:left;
-  padding:14px 16px;
-  background:#410000;
-}
-
-.table td{
-  padding:13px 16px;
-  border-top:1px solid rgba(255,255,255,.08);
-}
-
-.rank-badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:35px;
-  height:35px;
-  border-radius:50%;
-  background:#3e0000;
-  font-weight:900;
-}
-
-.rank-1{
-  background:#d8a500;
-  color:#3a2100;
-}
-
-.rank-2{
-  background:#b9c0c7;
-  color:#222;
-}
-
-.rank-3{
-  background:#b8783e;
-  color:#222;
-}
-
-.player{
-  font-weight:bold;
-}
-
-.score{
-  font-weight:bold;
-}
-
-.delete{
-  background:#8e0909;
-  color:white;
-  border:1px solid rgba(255,255,255,.2);
-  border-radius:6px;
-  padding:8px 11px;
-  font-weight:bold;
-}
-
-.history{
-  display:none;
-  padding:20px;
-}
-
-.history h2{
-  margin-top:0;
-}
-
-.history-item{
-  background:#3d0000;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:8px;
-  padding:14px;
-  margin-bottom:10px;
-}
-
-.history-actions{
-  margin-top:10px;
-}
-
-.empty{
-  text-align:center;
-  padding:35px;
-  color:#e5bebe;
-}
-
-.modalbg{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,.75);
-  z-index:20;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-}
-
-.modal{
-  width:min(600px,100%);
-  background:#570000;
-  border:1px solid #b33;
-  border-radius:10px;
-  padding:20px;
-}
-
-.modal h2{
-  margin-top:0;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-.grid label{
-  font-size:13px;
-  color:#eabbbb;
-}
-
-.grid input{
-  width:100%;
-  margin-top:5px;
-  padding:11px;
-  border:0;
-  border-radius:6px;
-}
-
-.full{
-  grid-column:1/-1;
-}
-
-.modal-actions{
-  display:flex;
-  gap:10px;
-  margin-top:16px;
-}
-
-.modal-actions button{
-  border:0;
-  border-radius:6px;
-  padding:11px 16px;
-  font-weight:bold;
-}
-
-.ok{
-  background:#eee;
-  color:#222;
-}
-
-.cancel{
-  background:#390000;
-  color:white;
-}
-
+.hero{min-height:260px;padding:18px 16px 0;background:linear-gradient(180deg,rgba(125,0,0,.95),rgba(93,0,0,.72));border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar{height:72px;display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:auto}
+.brand{display:flex;align-items:center;gap:12px}.trophy{font-size:34px}
+.brand h1{font-size:20px;margin:0}.brand small{opacity:.7}
+.menu{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:8px;padding:10px 14px;font-size:23px}
+.boardtitle{max-width:1100px;margin:42px auto 0}
+.boardtitle .game{display:inline-flex;align-items:center;gap:10px;background:#d03b2e;padding:9px 17px;border-radius:7px;font-weight:700;font-size:20px;box-shadow:0 2px 5px #350000}
+.tabs{max-width:1100px;margin:40px auto 0;display:flex;gap:32px;align-items:center;font-size:19px}
+.tabs span{padding:15px 0}.tabs .active{font-weight:700;border-bottom:3px solid #fff}
+.wrap{max-width:1100px;margin:-1px auto 40px}
+.panel{background:rgba(88,0,0,.83);border:1px solid rgba(255,255,255,.08);box-shadow:0 8px 30px rgba(0,0,0,.22)}
+.categories{padding:20px 16px 16px}
+.cat{display:inline-block;background:#410000;border:0;color:#fff;padding:12px 17px;margin:0 7px 10px 0;border-radius:6px;font-weight:700;font-size:16px;box-shadow:0 2px 5px #240000}
+.cat.active{background:#eee;color:#333}
+.fieldlabel{font-size:14px;color:#e7bdbd;margin:8px 0 7px}
+.dropdown{width:min(490px,100%);background:#5a0000;color:#fff;border:1px solid rgba(255,255,255,.08);padding:13px;border-radius:7px}
+.versions{display:flex;max-width:520px;background:#3b0000;border-radius:7px;padding:4px;margin-top:4px;overflow:auto}
+.ver{flex:1;min-width:82px;border:0;background:transparent;color:#fff;padding:11px 8px;border-radius:6px;font-weight:700}
+.ver.active{background:#eee;color:#333}
+.controls{display:flex;gap:10px;padding:14px 16px;border-top:1px solid rgba(255,255,255,.08);align-items:center}
+.switch{display:flex;flex:1;background:#3e0000;border:1px solid rgba(255,255,255,.08);border-radius:7px;padding:3px}
+.viewbtn{flex:1;border:0;background:transparent;color:#fff;padding:10px;border-radius:5px;font-weight:700}
+.viewbtn.active{background:#6d1111}
+.iconbtn{width:54px;height:45px;background:#4a0000;color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:6px;font-size:20px}
+.submit{flex:1;max-width:440px;border:1px solid #aaa;background:#eee;color:#333;border-radius:7px;padding:12px;font-weight:700;font-size:18px}
+.topbtn{border:1px solid rgba(255,255,255,.12);background:#4a0000;color:#fff;border-radius:6px;padding:10px 12px;font-weight:700}
+.topbtn.active{background:#eee;color:#333}
+.table{width:100%;border-collapse:collapse}
+.table th{font-size:15px;text-align:left;padding:14px 16px;background:rgba(65,0,0,.85)}
+.table td{padding:13px 16px;border-top:1px solid rgba(255,255,255,.08);background:rgba(80,0,0,.36)}
+.player{font-weight:700}.flag{margin-right:8px}.time{white-space:nowrap;font-weight:700}
+.comment{font-size:20px;opacity:.8}.rank{font-weight:700;width:70px}
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#3e0000;font-weight:900}
+.rank-1{background:#d8a500;color:#3a2100}.rank-2{background:#b9c0c7;color:#242424}.rank-3{background:#b8783e;color:#28170d}
+.new-row{animation:newRow .8s ease}
+@keyframes newRow{0%{background:rgba(255,220,80,.35)}100%{background:rgba(80,0,0,.36)}}
+.history{display:none;padding:25px}.history h2{margin-top:0}
+.empty{text-align:center;padding:35px;color:#e5bebe}
+.modalbg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:10;align-items:center;justify-content:center;padding:15px}
+.modal{width:min(620px,100%);background:#570000;border:1px solid #b33;border-radius:10px;padding:18px;box-shadow:0 15px 50px #000}
+.modal h2{margin:0 0 15px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+label{font-size:13px;color:#eabbbb}input,select{width:100%;margin-top:5px;background:#fff;color:#222;border:0;border-radius:6px;padding:11px}
+.full{grid-column:1/-1}.modalactions{display:flex;gap:10px;margin-top:15px}.modalactions button{padding:11px 16px;border-radius:6px;border:0;font-weight:700}
+.ok{background:#eee;color:#333}.cancel{background:#390000;color:#fff}
+.status{font-size:13px;margin-top:10px;color:#ffd0d0;min-height:18px}
+.live{display:inline-flex;align-items:center;gap:7px;margin-left:12px;font-size:12px;color:#bfffbf}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#40e060;box-shadow:0 0 8px #40e060}
+.deletebtn{background:#390000;color:#fff;border:1px solid rgba(255,255,255,.14);padding:8px 10px;border-radius:6px;font-weight:700}
 @media(max-width:650px){
-  .hero{min-height:245px}
-
-  .boardtitle{margin-top:28px}
-
-  .grid{
-    grid-template-columns:1fr;
-  }
-
-  .full{
-    grid-column:auto;
-  }
-
-  .controls>*{
-    width:100%;
-  }
+ .hero{min-height:245px}.boardtitle{margin-top:30px}.tabs{gap:20px;font-size:17px;overflow:hidden;white-space:nowrap}
+ .cat{font-size:15px;padding:11px 14px}.controls{flex-wrap:wrap}.submit{max-width:none;order:3;width:100%}
+ .grid{grid-template-columns:1fr}.full{grid-column:auto}.table{min-width:760px}
+ .panel{overflow:hidden}.categories{padding-bottom:10px}
 }
 </style>
 </head>
-
 <body>
-
 <header class="hero">
-
-  <div class="topbar">
-
-    <div class="brand">
-      <span class="trophy">🏆</span>
-
-      <div>
-        <h1>RunnerBoards</h1>
-        <small>Subway Surfers</small>
-      </div>
-    </div>
-
-    <button class="menu">☰</button>
-
-  </div>
-
-  <div class="boardtitle">
-    <div class="game">🛹 &nbsp;Subway Surfers</div>
-  </div>
-
-  <nav class="tabs">
-    <button id="rankingTab" class="tab active">🏆 Ranking</button>
-    <button id="historyTab" class="tab">📋 Partidas</button>
-  </nav>
-
+ <div class="topbar">
+  <div class="brand"><span class="trophy">🏆</span><div><h1>RunnerBoards</h1><small>Subway Surfers</small></div></div>
+  <button class="menu" aria-label="Menu">☰</button>
+ </div>
+ <div class="boardtitle"><div class="game">🛹 &nbsp;Subway Surfers</div></div>
+ <nav class="tabs"><span class="active">Leaderboards</span><span>News <b>22</b></span><span>Guides <b>8</b></span><span>•••</span></nav>
 </header>
 
 <main class="wrap">
-
-<section id="rankingPage" class="panel">
-
-  <div class="categories">
-
-    <button class="cat active" data-lg="Todas">Todas</button>
-    <button class="cat" data-lg="LG 1">LG 1</button>
-    <button class="cat" data-lg="LG 2">LG 2</button>
-    <button class="cat" data-lg="LG 3">LG 3</button>
-    <button class="cat" data-lg="LG 4">LG 4</button>
-
+ <section class="panel categories">
+  <div id="categories"></div>
+  <div class="fieldlabel">Modo</div>
+  <select id="mode" class="dropdown" onchange="render()">
+   <option>Todos</option><option>No Hoverboard/No Keys</option><option>Hoverboard/No Keys</option><option>Keys</option><option>No Keys</option>
+  </select>
+  <div class="fieldlabel">Version</div>
+  <div class="versions">
+   <button class="ver" data-v="Todos">Todos</button>
+   <button class="ver active" data-v="Web">Web</button>
+   <button class="ver" data-v="Mobile">Mobile</button>
+   <button class="ver" data-v="Emulador">Emulador</button>
+   <button class="ver" data-v="iOS">iOS</button>
+   <button class="ver" data-v="Android">Android</button>
   </div>
+ </section>
 
+ <section class="panel">
   <div class="controls">
-
-    <select id="lgFilter">
-      <option value="Todas">Todas as LGs</option>
-      <option value="LG 1">LG 1</option>
-      <option value="LG 2">LG 2</option>
-      <option value="LG 3">LG 3</option>
-      <option value="LG 4">LG 4</option>
-    </select>
-
-    <button class="submit" id="newMatch">
-      ➕ Enviar partida
-    </button>
-
+   <div class="switch">
+    <button class="viewbtn active" id="leaderBtn" onclick="showView('leader')">☷ &nbsp;Leaderboard <span class="live"><i class="live-dot"></i>ao vivo</span></button>
+    <button class="viewbtn" id="historyBtn" onclick="showView('history')">◷ &nbsp;History</button>
+   </div>
+   <button class="iconbtn" title="Filtros" onclick="toggleFilters()">☷</button>
+   <button class="iconbtn" title="Regras">▣</button>
+   <button class="topbtn" id="top1Btn" onclick="showTop(1)">TOP 1</button>
+   <button class="topbtn" id="top2Btn" onclick="showTop(2)">TOP 2</button>
+   <button class="submit" onclick="openModal()">⊕ &nbsp; Submit run</button>
   </div>
 
-  <div class="table-wrap">
+  <div id="filterbar" style="display:none;padding:0 16px 14px">
+   <input id="search" placeholder="Pesquisar jogador..." oninput="render()">
+  </div>
 
+  <div id="leaderView">
+   <div style="overflow:auto">
     <table class="table">
-
-      <thead>
-        <tr>
-          <th>Pos.</th>
-          <th>Jogador</th>
-          <th>LG</th>
-          <th>Pontuação</th>
-          <th>Partida</th>
-        </tr>
-      </thead>
-
-      <tbody id="rankingBody"></tbody>
-
+     <thead><tr><th class="rank">#</th><th>Player</th><th style="text-align:right">Time</th><th style="text-align:center">Vídeo</th><th style="text-align:center">Ação</th></tr></thead>
+     <tbody id="rows"></tbody>
     </table>
-
+   </div>
   </div>
 
-  <div id="emptyRanking" class="empty">
-    Nenhuma partida cadastrada ainda.
+  <div id="historyView" class="history">
+   <h2>Histórico</h2><div id="historyRows"></div>
   </div>
-
-</section>
-
-
-<section id="historyPage" class="panel history">
-
-  <h2>📋 Histórico de partidas</h2>
-
-  <div id="historyList"></div>
-
-</section>
-
+ </section>
 </main>
 
-
-<div id="modalBg" class="modalbg">
-
-  <div class="modal">
-
-    <h2>🏁 Enviar partida</h2>
-
-    <div class="grid">
-
-      <label>
-        Jogador
-        <input id="playerName" placeholder="Nome do jogador">
-      </label>
-
-      <label>
-        LG
-        <select id="playerLG">
-          <option>LG 1</option>
-          <option>LG 2</option>
-          <option>LG 3</option>
-          <option>LG 4</option>
-        </select>
-      </label>
-
-      <label>
-        Pontuação
-        <input id="playerScore" type="number" min="0" placeholder="Ex: 125000">
-      </label>
-
-      <label>
-        ID da partida
-        <input id="matchId" placeholder="Ex: CORRIDA-001">
-      </label>
-
-      <label class="full">
-        Observação
-        <input id="comment" placeholder="Opcional">
-      </label>
-
-    </div>
-
-    <div class="modal-actions">
-
-      <button class="ok" id="saveMatch">
-        Salvar partida
-      </button>
-
-      <button class="cancel" id="closeModal">
-        Cancelar
-      </button>
-
-    </div>
-
+<div class="modalbg" id="videoModal" onclick="closeVideo(event)">
+ <div class="modal" style="width:min(900px,100%);padding:10px;background:#250000">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 10px">
+   <strong id="videoTitle">Assistir corrida</strong>
+   <button class="iconbtn" onclick="closeVideo()" style="width:44px;height:40px">✕</button>
   </div>
-
+  <div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:7px;overflow:hidden">
+   <iframe id="videoFrame" src="" title="Vídeo da corrida"
+     style="position:absolute;inset:0;width:100%;height:100%;border:0"
+     allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
+     allowfullscreen></iframe>
+  </div>
+ </div>
 </div>
 
+<div class="modalbg" id="modalbg">
+ <div class="modal">
+  <h2>Enviar corrida</h2>
+  <div class="grid">
+   <div><label>Player</label><input id="name" placeholder="Seu nome"></div>
+   <div><label>Time</label><input id="time" placeholder="3h 30m 52s 400ms"></div>
+   <div><label>Data</label><input id="date" type="date"></div>
+   <div><label>Vídeo</label><input id="video" placeholder="Link do vídeo"></div>
+   <div><label>Categoria</label><select id="categoryInput"></select></div>
+   <div><label>Version</label><select id="versionInput"><option>Web</option><option>Mobile</option><option>Emulador</option><option>iOS</option><option>Android</option></select></div>
+   <div><label>Modo</label><select id="modeInput"><option>No Hoverboard/No Keys</option><option>Hoverboard/No Keys</option><option>Keys</option><option>No Keys</option></select></div>
+   <div><label>País</label><input id="country" value="🇧🇷"></div>
+  </div>
+  <div class="status" id="status"></div>
+  <div class="modalactions"><button class="cancel" onclick="closeModal()">Cancelar</button><button class="ok" onclick="submitRun()">Enviar corrida</button></div>
+ </div>
+</div>
 
 <script>
+const SUPABASE_URL="https://tvawxronmzsujcqtfrfd.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_YZYwVhNk6SQw6pykDPIXhg_3osU44sx";
 
-const STORAGE_KEY = "runnerboards_partidas";
+const cats=["No Coins","Coins","Mystery Hurdles","Score (x38-)","Score (x39+)","All Powerups","Any%","Obtain Item","Mystery box"];
+let activeCat="No Coins";
+let activeVersion="Web";
+let runs=[];
+let db=null;
+let channel=null;
+let topFilter=0;
 
-let matches = JSON.parse(
-  localStorage.getItem(STORAGE_KEY) || "[]"
-);
+function $(id){return document.getElementById(id)}
+function esc(x){
+ return String(x??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function parseTime(s){
+ const text=String(s||"").toLowerCase().replace(/,/g,".");
+ const h=text.match(/(\d+(?:\.\d+)?)\s*h/);
+ const m=text.match(/(\d+(?:\.\d+)?)\s*m/);
+ const ms=text.match(/(\d+(?:\.\d+)?)\s*ms/);
+ const sec=text.match(/(\d+(?:\.\d+)?)\s*s/);
+ if(!h&&!m&&!sec&&!ms){
+   const n=parseFloat(text);
+   return Number.isFinite(n)?n:Infinity;
+ }
+ return (h?+h[1]*3600:0)+(m?+m[1]*60:0)+(sec?+sec[1]:0)+(ms?+ms[1]/1000:0);
+}
+function sortRuns(list){
+ return list.slice().sort((a,b)=>{
+   const ta=parseTime(a.time), tb=parseTime(b.time);
+   if(ta!==tb)return ta-tb;
+   return String(a.created_at||a.date||"").localeCompare(String(b.created_at||b.date||""));
+ });
+}
+function init(){
+ $("categories").innerHTML=cats.map(c=>`<button class="cat ${c===activeCat?"active":""}" onclick="pickCat('${c.replace(/'/g,"\\'")}')">${c}</button>`).join("");
+ $("categoryInput").innerHTML=cats.map(c=>`<option>${c}</option>`).join("");
+ $("date").value=new Date().toISOString().slice(0,10);
 
-let selectedLG = "Todas";
+ document.querySelectorAll(".ver").forEach(b=>b.onclick=()=>{
+   activeVersion=b.dataset.v;
+   topFilter=0;
+   document.querySelectorAll(".ver").forEach(x=>x.classList.remove("active"));
+   b.classList.add("active");
+   render();
+ });
 
+ if(!SUPABASE_URL || !SUPABASE_ANON_KEY){
+   $("status").textContent="Configure o Supabase para ativar o envio online.";
+   render();
+   return;
+ }
 
-function saveData(){
+ db=supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ load();
 
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(matches)
-  );
+ channel=db.channel("runs-live")
+   .on("postgres_changes",{event:"INSERT",schema:"public",table:"Runs"},payload=>{
+      upsertRun(payload.new);
+      render();
+   })
+   .on("postgres_changes",{event:"UPDATE",schema:"public",table:"Runs"},payload=>{
+      upsertRun(payload.new);
+      render();
+   })
+   .on("postgres_changes",{event:"DELETE",schema:"public",table:"Runs"},payload=>{
+      runs=runs.filter(r=>r.id!==payload.old.id);
+      render();
+   })
+   .subscribe();
+}
+function upsertRun(row){
+ if(!row)return;
+ const index=row.id ? runs.findIndex(r=>r.id===row.id) : -1;
+ if(index>=0)runs[index]=row;
+ else runs.push(row);
+}
+function pickCat(c){
+ activeCat=c;
+ topFilter=0;
+ document.querySelectorAll(".cat").forEach(x=>x.classList.toggle("active",x.textContent===c));
+ render();
+}
+function filteredRuns(){
+ const q=($("search").value||"").toLowerCase().trim();
+ const mode=$("mode").value;
+ let list=runs.filter(r=>{
+   if(q && !String(r.name||"").toLowerCase().includes(q))return false;
+   if((r.category||"")!==activeCat)return false;
+   if(mode!=="Todos" && (r.mode||"")!==mode)return false;
+   if(activeVersion!=="Todos" && (r.version||"")!==activeVersion)return false;
+   return true;
+ });
+ list=sortRuns(list);
+ if(topFilter===1)list=list.slice(0,1);
+ if(topFilter===2)list=list.slice(0,2);
+ return list;
+}
+function medal(i){
+ if(i===0)return "🥇";
+ if(i===1)return "🥈";
+ if(i===2)return "🥉";
+ return i+1;
+}
+function render(){
+ const list=filteredRuns();
+ $("top1Btn").classList.toggle("active",topFilter===1);
+ $("top2Btn").classList.toggle("active",topFilter===2);
+ $("rows").innerHTML=list.length ? list.map((r,i)=>`
+   <tr class="${i<5?'new-row':''}">
+    <td class="rank"><span class="rank-badge rank-${i+1}">${medal(i)}</span></td>
+    <td class="player"><span class="flag">${esc(r.country||"🇧🇷")}</span>${esc(r.name)} <span class="comment">○</span></td>
+    <td class="time" style="text-align:right">${esc(r.time)}</td>
+    <td style="text-align:center">
+      ${r.video
+        ? `<button onclick='openVideo(${JSON.stringify(String(r.video))},${JSON.stringify(String(r.name||""))})'
+             style="background:#eee;color:#333;border:0;padding:8px 12px;border-radius:6px;font-weight:700;font-size:14px">▶ Assistir</button>`
+        : `<span style="opacity:.45">Sem vídeo</span>`}
+    </td>
+    <td style="text-align:center">
+      ${r.id ? `<button class="deletebtn" onclick='deleteRun(${JSON.stringify(String(r.id))},${JSON.stringify(String(r.name||""))})'>🗑️ Excluir</button>` : ""}
+    </td>
+   </tr>`).join("")
+   : `<tr><td colspan="5" class="empty">Nenhuma corrida encontrada.</td></tr>`;
 
+ $("historyRows").innerHTML=runs.length
+   ? sortRuns(runs).reverse().map(r=>`<p>🏁 <b>${esc(r.name)}</b> — ${esc(r.time)} — ${esc(r.category)} — ${esc(r.version)} ${r.video?`— <button class="topbtn" onclick='openVideo(${JSON.stringify(String(r.video))},${JSON.stringify(String(r.name||""))})'>▶ Assistir</button>`:""}</p>`).join("")
+   : "Nenhuma corrida enviada.";
+}
+function showTop(n){
+ topFilter=topFilter===n?0:n;
+ showView("leader");
+ render();
+}
+async function load(){
+ if(!db)return;
+ const {data,error}=await db.from("Runs").select("*").range(0,11999);
+ if(error){
+   console.error(error);
+   $("status").textContent="Erro ao carregar: "+error.message;
+   render();
+   return;
+ }
+ runs=data||[];
+ render();
+}
+function openModal(){
+ $("modalbg").style.display="flex";
+ $("categoryInput").value=activeCat;
+ $("versionInput").value=activeVersion==="Todos"?"Web":activeVersion;
+ $("modeInput").value=$("mode").value==="Todos"?"No Hoverboard/No Keys":$("mode").value;
+ $("status").textContent="";
+}
+function closeModal(){$("modalbg").style.display="none"}
+function toggleFilters(){
+ let x=$("filterbar");
+ x.style.display=x.style.display==="none"?"block":"none";
+}
+function showView(v){
+ $("leaderView").style.display=v==="leader"?"block":"none";
+ $("historyView").style.display=v==="history"?"block":"none";
+ $("leaderBtn").classList.toggle("active",v==="leader");
+ $("historyBtn").classList.toggle("active",v==="history");
 }
 
-
-function formatScore(score){
-
-  return Number(score).toLocaleString("pt-BR");
-
+function youtubeEmbed(url){
+ const s=String(url||"").trim();
+ let id="";
+ try{
+   const u=new URL(s);
+   if(u.hostname.includes("youtu.be")) id=u.pathname.split("/").filter(Boolean)[0]||"";
+   else if(u.hostname.includes("youtube.com")){
+     id=u.searchParams.get("v")||"";
+     if(!id && u.pathname.startsWith("/shorts/")) id=u.pathname.split("/")[2]||"";
+     if(!id && u.pathname.startsWith("/embed/")) id=u.pathname.split("/")[2]||"";
+   }
+ }catch(e){}
+ return id ? "https://www.youtube.com/embed/"+encodeURIComponent(id)+"?autoplay=1&rel=0" : "";
+}
+function openVideo(url,name){
+ const embed=youtubeEmbed(url);
+ if(!embed){
+   alert("Esse link não parece ser um link válido do YouTube.");
+   return;
+ }
+ $("videoTitle").textContent="Assistir corrida — "+(name||"");
+ $("videoFrame").src=embed;
+ $("videoModal").style.display="flex";
+}
+function closeVideo(e){
+ if(e && e.target!==$("videoModal"))return;
+ $("videoFrame").src="";
+ $("videoModal").style.display="none";
 }
 
+async function deleteRun(id,name){
+ if(!db || !id)return;
+ if(!confirm("Excluir a corrida de "+(name||"este jogador")+"?"))return;
 
-function renderRanking(){
-
-  const body = document.getElementById("rankingBody");
-  const empty = document.getElementById("emptyRanking");
-
-  body.innerHTML = "";
-
-  let list = [...matches];
-
-  if(selectedLG !== "Todas"){
-    list = list.filter(
-      item => item.lg === selectedLG
-    );
-  }
-
-  /*
-    MAIOR PONTUAÇÃO = MELHOR POSIÇÃO
-  */
-
-  list.sort(
-    (a,b) => Number(b.score) - Number(a.score)
-  );
-
-  if(list.length === 0){
-
-    empty.style.display = "block";
-    return;
-
-  }
-
-  empty.style.display = "none";
-
-  /*
-    Limite visual de 12.000 jogadores
-  */
-
-  list.slice(0,12000).forEach((item,index)=>{
-
-    const position = index + 1;
-
-    const tr = document.createElement("tr");
-
-    let rankClass = "";
-
-    if(position === 1) rankClass = "rank-1";
-    if(position === 2) rankClass = "rank-2";
-    if(position === 3) rankClass = "rank-3";
-
-    tr.innerHTML = `
-
-      <td>
-        <span class="rank-badge ${rankClass}">
-          ${position}
-        </span>
-      </td>
-
-      <td>
-        <span class="player">
-          ${escapeHTML(item.name)}
-        </span>
-      </td>
-
-      <td>
-        ${escapeHTML(item.lg)}
-      </td>
-
-      <td>
-        <span class="score">
-          ${formatScore(item.score)}
-        </span>
-      </td>
-
-      <td>
-        ${escapeHTML(item.match)}
-      </td>
-
-    `;
-
-    body.appendChild(tr);
-
-  });
-
+ $("status").textContent="Excluindo corrida...";
+ const {error}=await db.from("Runs").delete().eq("id",id);
+ if(error){
+   console.error(error);
+   $("status").textContent="Erro ao excluir: "+error.message;
+   return;
+ }
+ runs=runs.filter(r=>String(r.id)!==String(id));
+ render();
+ $("status").textContent="Corrida excluída.";
 }
 
+async function submitRun(){
+ const row={
+   name:$("name").value.trim(),
+   time:$("time").value.trim(),
+   date:$("date").value,
+   video:$("video").value.trim()||null,
+   category:$("categoryInput").value,
+   version:$("versionInput").value,
+   mode:$("modeInput").value,
+   country:$("country").value.trim()||"🇧🇷"
+ };
+ if(!row.name||!row.time){
+   $("status").textContent="Preencha Player e Time.";
+   return;
+ }
+ if(!db){
+   $("status").textContent="Supabase não está configurado.";
+   return;
+ }
 
-function renderHistory(){
+ $("status").textContent="Enviando corrida...";
 
-  const list = document.getElementById("historyList");
+ const {data,error}=await db.from("Runs").insert([row]).select().single();
 
-  list.innerHTML = "";
+ if(error){
+   console.error(error);
+   $("status").textContent="Erro: "+error.message;
+   return;
+ }
 
-  if(matches.length === 0){
+ upsertRun(data);
+ render();
+ closeModal();
 
-    list.innerHTML =
-      '<div class="empty">Nenhuma partida cadastrada.</div>';
-
-    return;
-
-  }
-
-  const ordered = [...matches].reverse();
-
-  ordered.forEach(item=>{
-
-    const div = document.createElement("div");
-
-    div.className = "history-item";
-
-    div.innerHTML = `
-
-      <strong>${escapeHTML(item.name)}</strong>
-
-      <br>
-
-      LG:
-      <strong>${escapeHTML(item.lg)}</strong>
-
-      <br>
-
-      Pontuação:
-      <strong>${formatScore(item.score)}</strong>
-
-      <br>
-
-      Partida:
-      ${escapeHTML(item.match)}
-
-      ${
-        item.comment
-        ? `<br>💬 ${escapeHTML(item.comment)}`
-        : ""
-      }
-
-      <div class="history-actions">
-
-        <button
-          class="delete"
-          onclick="deleteMatch('${item.id}')">
-          🗑️ Excluir partida
-        </button>
-
-      </div>
-
-    `;
-
-    list.appendChild(div);
-
-  });
-
+ setTimeout(()=>{$("status").textContent="Corrida enviada com sucesso!";},50);
 }
-
-
-function deleteMatch(id){
-
-  const match = matches.find(
-    item => item.id === id
-  );
-
-  if(!match) return;
-
-  const confirmDelete = confirm(
-    "Tem certeza que deseja excluir esta partida?"
-  );
-
-  if(!confirmDelete) return;
-
-  matches = matches.filter(
-    item => item.id !== id
-  );
-
-  saveData();
-
-  renderRanking();
-  renderHistory();
-
-}
-
-
-function escapeHTML(value){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* MODAL */
-
-const modalBg =
-  document.getElementById("modalBg");
-
-document
-  .getElementById("newMatch")
-  .onclick = () => {
-
-    modalBg.style.display = "flex";
-
-  };
-
-
-document
-  .getElementById("closeModal")
-  .onclick = () => {
-
-    modalBg.style.display = "none";
-
-  };
-
-
-modalBg.addEventListener("click",(event)=>{
-
-  if(event.target === modalBg){
-
-    modalBg.style.display = "none";
-
-  }
-
-});
-
-
-/* SALVAR PARTIDA */
-
-document
-  .getElementById("saveMatch")
-  .onclick = () => {
-
-    const name =
-      document.getElementById("playerName")
-      .value.trim();
-
-    const lg =
-      document.getElementById("playerLG")
-      .value;
-
-    const score =
-      Number(
-        document.getElementById("playerScore")
-        .value
-      );
-
-    const match =
-      document.getElementById("matchId")
-      .value.trim();
-
-    const comment =
-      document.getElementById("comment")
-      .value.trim();
-
-
-    if(!name){
-
-      alert("Digite o nome do jogador.");
-      return;
-
-    }
-
-    if(!score || score < 0){
-
-      alert("Digite uma pontuação válida.");
-      return;
-
-    }
-
-    if(!match){
-
-      alert("Digite o ID da partida.");
-      return;
-
-    }
-
-
-    const newMatch = {
-
-      id:
-        Date.now().toString()
-        + Math.random()
-          .toString(16)
-          .slice(2),
-
-      name:name,
-
-      lg:lg,
-
-      score:score,
-
-      match:match,
-
-      comment:comment,
-
-      createdAt:
-        new Date().toISOString()
-
-    };
-
-
-    matches.push(newMatch);
-
-    saveData();
-
-    renderRanking();
-    renderHistory();
-
-    document.getElementById("playerName").value = "";
-    document.getElementById("playerScore").value = "";
-    document.getElementById("matchId").value = "";
-    document.getElementById("comment").value = "";
-
-    modalBg.style.display = "none";
-
-  };
-
-
-/* FILTRO LG */
-
-document
-  .getElementById("lgFilter")
-  .addEventListener("change",(event)=>{
-
-    selectedLG = event.target.value;
-
-    document
-      .querySelectorAll(".cat")
-      .forEach(button=>{
-        button.classList.toggle(
-          "active",
-          button.dataset.lg === selectedLG
-        );
-      });
-
-    renderRanking();
-
-  });
-
-
-document
-  .querySelectorAll(".cat")
-  .forEach(button=>{
-
-    button.addEventListener("click",()=>{
-
-      selectedLG =
-        button.dataset.lg;
-
-      document
-        .getElementById("lgFilter")
-        .value = selectedLG;
-
-      document
-        .querySelectorAll(".cat")
-        .forEach(b=>{
-          b.classList.remove("active");
-        });
-
-      button.classList.add("active");
-
-      renderRanking();
-
-    });
-
-  });
-
-
-/* ABAS */
-
-const rankingPage =
-  document.getElementById("rankingPage");
-
-const historyPage =
-  document.getElementById("historyPage");
-
-document
-  .getElementById("rankingTab")
-  .onclick = () => {
-
-    rankingPage.style.display = "block";
-    historyPage.style.display = "none";
-
-    document
-      .getElementById("rankingTab")
-      .classList.add("active");
-
-    document
-      .getElementById("historyTab")
-      .classList.remove("active");
-
-  };
-
-
-document
-  .getElementById("historyTab")
-  .onclick = () => {
-
-    rankingPage.style.display = "none";
-    historyPage.style.display = "block";
-
-    document
-      .getElementById("historyTab")
-      .classList.remove("active");
-
-    document
-      .getElementById("historyTab")
-      .classList.add("active");
-
-  };
-
-
-/* INICIAR */
-
-renderRanking();
-renderHistory();
-
+window.addEventListener("beforeunload",()=>{if(channel&&db)db.removeChannel(channel)});
+init();
 </script>
-
 </body>
-            </html>
+</html>
