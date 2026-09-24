@@ -120,7 +120,7 @@ label{font-size:13px;color:#eabbbb}input,select{width:100%;margin-top:5px;backgr
   <div id="leaderView">
    <div style="overflow:auto">
     <table class="table">
-     <thead><tr><th class="rank">#</th><th>Player</th><th style="text-align:right">Time</th></tr></thead>
+     <thead><tr><th class="rank">#</th><th>Player</th><th style="text-align:right">Time</th><th style="text-align:center">Vídeo</th></tr></thead>
      <tbody id="rows"></tbody>
     </table>
    </div>
@@ -131,6 +131,22 @@ label{font-size:13px;color:#eabbbb}input,select{width:100%;margin-top:5px;backgr
   </div>
  </section>
 </main>
+
+
+<div class="modalbg" id="videoModal" onclick="closeVideo(event)">
+ <div class="modal" style="width:min(900px,100%);padding:10px;background:#250000">
+  <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 8px 10px">
+   <strong id="videoTitle">Assistir corrida</strong>
+   <button class="iconbtn" onclick="closeVideo()" style="width:44px;height:40px">✕</button>
+  </div>
+  <div style="position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:7px;overflow:hidden">
+   <iframe id="videoFrame" src="" title="Vídeo da corrida"
+     style="position:absolute;inset:0;width:100%;height:100%;border:0"
+     allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
+     allowfullscreen></iframe>
+  </div>
+ </div>
+</div>
 
 <div class="modalbg" id="modalbg">
  <div class="modal">
@@ -255,8 +271,14 @@ function render(){
     <td class="rank"><span class="rank-badge rank-${i+1}">${medal(i)}</span></td>
     <td class="player"><span class="flag">${esc(r.country||"🇧🇷")}</span>${esc(r.name)} <span class="comment">○</span></td>
     <td class="time" style="text-align:right">${esc(r.time)}</td>
+    <td style="text-align:center">
+      ${r.video
+        ? `<button onclick='openVideo(${JSON.stringify(String(r.video))},${JSON.stringify(String(r.name||""))})'
+             style="background:#eee;color:#333;border:0;padding:8px 12px;border-radius:6px;font-weight:700;font-size:14px">▶ Assistir</button>`
+        : `<span style="opacity:.45">Sem vídeo</span>`}
+    </td>
    </tr>`).join("")
-   : `<tr><td colspan="3" class="empty">Nenhuma corrida encontrada.</td></tr>`;
+   : `<tr><td colspan="4" class="empty">Nenhuma corrida encontrada.</td></tr>`;
 
  $("historyRows").innerHTML=runs.length
    ? sortRuns(runs).reverse().map(r=>`<p>🏁 <b>${esc(r.name)}</b> — ${esc(r.time)} — ${esc(r.category)} — ${esc(r.version)}</p>`).join("")
@@ -292,6 +314,37 @@ function showView(v){
  $("leaderBtn").classList.toggle("active",v==="leader");
  $("historyBtn").classList.toggle("active",v==="history");
 }
+
+function youtubeEmbed(url){
+ const s=String(url||"").trim();
+ let id="";
+ try{
+   const u=new URL(s);
+   if(u.hostname.includes("youtu.be")) id=u.pathname.split("/").filter(Boolean)[0]||"";
+   else if(u.hostname.includes("youtube.com")){
+     id=u.searchParams.get("v")||"";
+     if(!id && u.pathname.startsWith("/shorts/")) id=u.pathname.split("/")[2]||"";
+     if(!id && u.pathname.startsWith("/embed/")) id=u.pathname.split("/")[2]||"";
+   }
+ }catch(e){}
+ return id ? "https://www.youtube.com/embed/"+encodeURIComponent(id)+"?autoplay=1&rel=0" : "";
+}
+function openVideo(url,name){
+ const embed=youtubeEmbed(url);
+ if(!embed){
+   alert("Esse link não parece ser um link válido do YouTube.");
+   return;
+ }
+ $("videoTitle").textContent="Assistir corrida — "+(name||"");
+ $("videoFrame").src=embed;
+ $("videoModal").style.display="flex";
+}
+function closeVideo(e){
+ if(e && e.target!==$("videoModal"))return;
+ $("videoFrame").src="";
+ $("videoModal").style.display="none";
+}
+
 async function submitRun(){
  const row={
    name:$("name").value.trim(),
@@ -339,4 +392,4 @@ window.addEventListener("beforeunload",()=>{if(channel&&db)db.removeChannel(chan
 init();
 </script>
 </body>
-    </html>
+     </html>
