@@ -53,7 +53,7 @@ button{cursor:pointer}
 .table td{padding:13px 16px;border-top:1px solid rgba(255,255,255,.08);background:rgba(80,0,0,.36)}
 .player{font-weight:700}.flag{margin-right:8px}.time{white-space:nowrap;font-weight:700}
 .comment{font-size:20px;opacity:.8}.rank{font-weight:700;width:70px}
-.rank-badge{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:#3e0000;font-weight:900}
+.rank-badge{display:inline-flex;align-items:center;justify-content:center;min-width:64px;height:34px;padding:0 9px;border-radius:6px;background:#3e0000;font-weight:900;font-size:13px}.rank-top1{background:#d8a500;color:#3a2100}.rank-top2{background:#b9c0c7;color:#242424}.rank-top3{background:#b8783e;color:#28170d}
 .rank-1{background:#d8a500;color:#3a2100}.rank-2{background:#b9c0c7;color:#242424}.rank-3{background:#b8783e;color:#28170d}
 .new-row{animation:newRow .8s ease}
 @keyframes newRow{0%{background:rgba(255,220,80,.35)}100%{background:rgba(80,0,0,.36)}}
@@ -270,10 +270,16 @@ function filteredRuns(){
  return list;
 }
 function medal(i){
- if(i===0)return "🥇";
- if(i===1)return "🥈";
- if(i===2)return "🥉";
- return i+1;
+ if(i===0)return "TOP 1";
+ if(i===1)return "TOP 2";
+ if(i===2)return "TOP 3";
+ return "TOP "+(i+1);
+}
+function rankClass(i){
+ if(i===0)return "rank-top1";
+ if(i===1)return "rank-top2";
+ if(i===2)return "rank-top3";
+ return "";
 }
 function render(){
  const list=filteredRuns();
@@ -281,7 +287,7 @@ function render(){
  $("top2Btn").classList.toggle("active",topFilter===2);
  $("rows").innerHTML=list.length ? list.map((r,i)=>`
    <tr class="${i<5?'new-row':''}">
-    <td class="rank"><span class="rank-badge rank-${i+1}">${medal(i)}</span></td>
+    <td class="rank"><span class="rank-badge ${rankClass(i)}">${medal(i)}</span></td>
     <td class="player"><span class="flag">${esc(r.country||"🇧🇷")}</span>${esc(r.name)} <span class="comment">○</span></td>
     <td class="time" style="text-align:right">${esc(r.time)}</td>
     <td style="text-align:center">
@@ -422,4 +428,4 @@ window.addEventListener("beforeunload",()=>{if(channel&&db)db.removeChannel(chan
 init();
 </script>
 </body>
-</html>
+</html>eta 
