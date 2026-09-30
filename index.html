@@ -46,7 +46,7 @@ select,.field{width:100%;background:#570000;color:#eee;border:1px solid #8c2222;
 .switch .sel{background:#eee;color:#222;border-radius:8px}
 .actions{display:flex;gap:10px;margin:14px 0}
 .small{width:86px;background:#650000;border:1px solid #a33;color:white;border-radius:8px;font-size:23px}
-.submit{flex:1;background:#eee;color:#222;border:0;border-radius:8px;font-weight:bold;font-size:21px}
+.submit{flex:1;background:#eee;color:#222;border:0;border-radius:8px;font-weight:bold;font-size:21px;padding:13px}
 table{width:100%;border-collapse:collapse;margin-top:8px;min-width:680px}
 th,td{padding:16px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08)}
 th{font-size:19px}
@@ -66,11 +66,13 @@ td{font-size:18px}
 .formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .full{grid-column:1/-1}
 .danger{background:#450000;color:#ffb0b0;border:1px solid #a44;padding:11px;border-radius:8px}
+.watch{background:#eee;color:#222;border:0;border-radius:8px;padding:9px 12px;font-weight:bold}
 .authbox{width:min(450px,100%);background:#700000;border-radius:12px;padding:22px}
 .authbox h2{margin-top:0}
 .authbox button{margin-top:12px}
 .authmessage{margin-top:12px;color:#ddd}
 .useremail{font-size:14px;color:#fff}
+.accountemail{background:#4d0000;border:1px solid #a33;border-radius:8px;padding:12px;margin:10px 0;color:#fff}
 
 @media(max-width:650px){
 .top{height:88px;padding:12px 16px}
@@ -92,9 +94,13 @@ h1{font-size:25px}
 <body>
 
 <header class="top">
-  <div class="logo">🏆 <span class="hamb">☰</span></div>
+
+  <div class="logo">
+    🏆 <span class="hamb">☰</span>
+  </div>
 
   <div class="topicons">
+
     <span id="userEmail" class="useremail"></span>
 
     <button class="authbtn" id="loginBtn">
@@ -104,8 +110,11 @@ h1{font-size:25px}
     <button class="authbtn" id="logoutBtn" style="display:none">
       Sair
     </button>
+
   </div>
+
 </header>
+
 
 <main class="page">
 
@@ -116,6 +125,7 @@ h1{font-size:25px}
     <div class="icon">🏃</div>
 
     <div>
+
       <h1>
         Subway Surfers
         <span style="font-weight:normal">(2012)</span>
@@ -127,6 +137,7 @@ h1{font-size:25px}
         <span class="pill">WindowsPhone</span>
         <span class="pill">Web</span>
       </div>
+
     </div>
 
   </div>
@@ -144,47 +155,23 @@ h1{font-size:25px}
 
 </section>
 
+
 <section class="panel">
 
   <div class="filters">
 
-    <button class="filter sel" data-cat="No Coins">
-      No Coins
-    </button>
-
-    <button class="filter" data-cat="Coins">
-      Coins
-    </button>
-
-    <button class="filter" data-cat="Mystery Hurdles">
-      Mystery Hurdles
-    </button>
-
-    <button class="filter" data-cat="Score (x38-)">
-      Score (x38-)
-    </button>
-
-    <button class="filter" data-cat="Score (x39+)">
-      Score (x39+)
-    </button>
-
-    <button class="filter" data-cat="All Powerups">
-      All Powerups
-    </button>
-
-    <button class="filter" data-cat="Any%">
-      Any%
-    </button>
-
-    <button class="filter" data-cat="Obtain Item">
-      Obtain Item
-    </button>
-
-    <button class="filter" data-cat="Mystery box">
-      Mystery box
-    </button>
+    <button class="filter sel" data-cat="No Coins">No Coins</button>
+    <button class="filter" data-cat="Coins">Coins</button>
+    <button class="filter" data-cat="Mystery Hurdles">Mystery Hurdles</button>
+    <button class="filter" data-cat="Score (x38-)">Score (x38-)</button>
+    <button class="filter" data-cat="Score (x39+)">Score (x39+)</button>
+    <button class="filter" data-cat="All Powerups">All Powerups</button>
+    <button class="filter" data-cat="Any%">Any%</button>
+    <button class="filter" data-cat="Obtain Item">Obtain Item</button>
+    <button class="filter" data-cat="Mystery box">Mystery box</button>
 
   </div>
+
 
   <label>No Coin</label>
 
@@ -195,27 +182,18 @@ h1{font-size:25px}
     <option>Hoverboard + Keys</option>
   </select>
 
+
   <label>Version</label>
 
-  <div class="versions" id="versions">
+  <div class="versions">
 
-    <button class="ver sel" data-v="Mobile">
-      Mobile
-    </button>
-
-    <button class="ver" data-v="Emulator">
-      Emulator
-    </button>
-
-    <button class="ver" data-v="Web">
-      Web
-    </button>
-
-    <button class="ver" data-v="iOS">
-      iOS
-    </button>
+    <button class="ver sel" data-v="Mobile">Mobile</button>
+    <button class="ver" data-v="Emulator">Emulator</button>
+    <button class="ver" data-v="Web">Web</button>
+    <button class="ver" data-v="iOS">iOS</button>
 
   </div>
+
 
   <div class="switch">
 
@@ -229,13 +207,14 @@ h1{font-size:25px}
 
   </div>
 
+
   <div class="actions">
 
-    <button class="small" title="Filtros">
+    <button class="small">
       ☷
     </button>
 
-    <button class="small" title="Regras">
+    <button class="small">
       📖
     </button>
 
@@ -244,6 +223,7 @@ h1{font-size:25px}
     </button>
 
   </div>
+
 
   <div class="scroll">
 
@@ -333,11 +313,16 @@ h1{font-size:25px}
 
     <h2>Submit run</h2>
 
+    <div class="accountemail" id="accountEmail">
+      Não conectado
+    </div>
+
     <form id="runForm">
 
       <div class="formgrid">
 
         <div>
+
           <label>Player</label>
 
           <input
@@ -346,9 +331,12 @@ h1{font-size:25px}
             name="player"
             placeholder="Nome do jogador"
             required>
+
         </div>
 
+
         <div>
+
           <label>Time</label>
 
           <input
@@ -357,9 +345,12 @@ h1{font-size:25px}
             name="time"
             placeholder="3h 30m 52s 400ms"
             required>
+
         </div>
 
+
         <div>
+
           <label>Date</label>
 
           <input
@@ -368,9 +359,12 @@ h1{font-size:25px}
             name="date"
             type="date"
             required>
+
         </div>
 
+
         <div>
+
           <label>Video</label>
 
           <input
@@ -379,6 +373,7 @@ h1{font-size:25px}
             name="video"
             type="url"
             placeholder="https://youtube.com/...">
+
         </div>
 
       </div>
@@ -386,17 +381,818 @@ h1{font-size:25px}
       <br>
 
       <button
-        class="submit<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        class="submit"
+        id="sendRun"
+        type="submit">
+
+        Enviar run
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<!-- VIDEO DENTRO DO SITE -->
+
+<div class="modal" id="videoModal">
+
+  <div class="modalbox">
+
+    <button class="close" id="closeVideo">
+      ×
+    </button>
+
+    <h2>Assistir run</h2>
+
+    <div class="video">
+
+      <iframe
+        id="videoFrame"
+        allow="autoplay; encrypted-media"
+        allowfullscreen>
+      </iframe>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script>
 
 const SUPABASE_URL =
   'https://tudtuikuvwtbauiqcwkz.supabase.co';
 
+
+/*
+  IMPORTANTE:
+  COLE AQUI A SUA PUBLISHABLE KEY.
+
+  NÃO coloque sb_secret_...
+*/
+
 const SUPABASE_KEY =
-  sb_secret_mIMzSdBL-M3I4m5z66IkXg_SZiH9ek3
+  'COLE_AQUI_SUA_PUBLISHABLE_KEY';
+
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+let currentUser = null;
+
+let category = 'No Coins';
+
+let version = 'Mobile';
+
+let keyMode = 'No Hoverboard/No Keys';
+
+
+const modal =
+  document.getElementById('modal');
+
+const authModal =
+  document.getElementById('authModal');
+
+const videoModal =
+  document.getElementById('videoModal');
+
+const videoFrame =
+  document.getElementById('videoFrame');
+
+const runsBody =
+  document.getElementById('runs');
+
+const form =
+  document.getElementById('runForm');
+
+const loginBtn =
+  document.getElementById('loginBtn');
+
+const logoutBtn =
+  document.getElementById('logoutBtn');
+
+const userEmail =
+  document.getElementById('userEmail');
+
+const authMessage =
+  document.getElementById('authMessage');
+
+const accountEmail =
+  document.getElementById('accountEmail');
+
+
+/* LOGIN */
+
+loginBtn.onclick = () => {
+
+  authModal.classList.add('show');
+
+};
+
+
+document.getElementById('closeAuth').onclick = () => {
+
+  authModal.classList.remove('show');
+
+};
+
+
+/* CRIAR CONTA */
+
+document.getElementById('signUpBtn').onclick =
+async () => {
+
+  const email =
+    document.getElementById('authEmail').value.trim();
+
+  const password =
+    document.getElementById('authPassword').value;
+
+
+  if(!email || !password){
+
+    authMessage.textContent =
+      'Digite seu e-mail e sua senha.';
+
+    return;
+
+  }
+
+
+  const {error} =
+    await supabaseClient.auth.signUp({
+      email: email,
+      password: password
+    });
+
+
+  if(error){
+
+    authMessage.textContent =
+      error.message;
+
+    return;
+
+  }
+
+
+  authMessage.textContent =
+    'Conta criada! Verifique seu e-mail se o Supabase solicitar.';
+
+};
+
+
+/* ENTRAR COM E-MAIL */
+
+document.getElementById('signInBtn').onclick =
+async () => {
+
+  const email =
+    document.getElementById('authEmail').value.trim();
+
+  const password =
+    document.getElementById('authPassword').value;
+
+
+  const {error} =
+    await supabaseClient.auth.signInWithPassword({
+
+      email: email,
+
+      password: password
+
+    });
+
+
+  if(error){
+
+    authMessage.textContent =
+      error.message;
+
+    return;
+
+  }
+
+
+  authModal.classList.remove('show');
+
+};
+
+
+/* GOOGLE */
+
+document.getElementById('googleBtn').onclick =
+async () => {
+
+  const {error} =
+    await supabaseClient.auth.signInWithOAuth({
+
+      provider: 'google',
+
+      options: {
+        redirectTo: window.location.origin
+      }
+
+    });
+
+
+  if(error){
+
+    authMessage.textContent =
+      error.message;
+
+  }
+
+};
+
+
+/* SAIR */
+
+logoutBtn.onclick =
+async () => {
+
+  await supabaseClient.auth.signOut();
+
+};
+
+
+/* USUÁRIO */
+
+function updateUser(session){
+
+  currentUser =
+    session ? session.user : null;
+
+
+  if(currentUser){
+
+    userEmail.textContent =
+      currentUser.email || '';
+
+
+    loginBtn.style.display =
+      'none';
+
+
+    logoutBtn.style.display =
+      'inline-block';
+
+
+    accountEmail.textContent =
+      'Conta: ' + (currentUser.email || '');
+
+  }else{
+
+    userEmail.textContent =
+      '';
+
+
+    loginBtn.style.display =
+      'inline-block';
+
+
+    logoutBtn.style.display =
+      'none';
+
+
+    accountEmail.textContent =
+      'Não conectado';
+
+  }
+
+}
+
+
+/* SESSÃO */
+
+supabaseClient.auth.getSession()
+.then(({data}) => {
+
+  updateUser(data.session);
+
+  loadRuns();
+
+});
+
+
+supabaseClient.auth.onAuthStateChange(
+  (_event, session) => {
+
+    updateUser(session);
+
+    loadRuns();
+
+  }
+);
+
+
+/* ABRIR SUBMIT */
+
+document.getElementById('openForm').onclick =
+() => {
+
+  if(!currentUser){
+
+    authModal.classList.add('show');
+
+    authMessage.textContent =
+      'Entre na sua conta antes de enviar uma run.';
+
+    return;
+
+  }
+
+
+  modal.classList.add('show');
+
+
+  document.getElementById('date').value =
+    new Date().toISOString().slice(0,10);
+
+
+  accountEmail.textContent =
+    'Enviando como: ' + currentUser.email;
+
+};
+
+
+/* FECHAR */
+
+document.getElementById('close').onclick =
+() => {
+
+  modal.classList.remove('show');
+
+};
+
+
+/* ENVIAR RUN */
+
+form.addEventListener(
+  'submit',
+  async (event) => {
+
+    event.preventDefault();
+
+
+    if(!currentUser){
+
+      alert('Entre na sua conta primeiro.');
+
+      return;
+
+    }
+
+
+    const player =
+      document.getElementById('player').value.trim();
+
+    const time =
+      document.getElementById('time').value.trim();
+
+    const date =
+      document.getElementById('date').value;
+
+    const video =
+      document.getElementById('video').value.trim();
+
+
+    const sendRun =
+      document.getElementById('sendRun');
+
+
+    sendRun.disabled = true;
+
+    sendRun.textContent =
+      'Enviando...';
+
+
+    const {error} =
+      await supabaseClient
+        .from('runs')
+        .insert({
+
+          user_id: currentUser.id,
+
+          player: player,
+
+          time: time,
+
+          date: date,
+
+          video: video || null,
+
+          category: category,
+
+          version: version,
+
+          key_mode: keyMode
+
+        });
+
+
+    sendRun.disabled = false;
+
+    sendRun.textContent =
+      'Enviar run';
+
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        'Erro ao enviar a run:\n' +
+        error.message
+      );
+
+      return;
+
+    }
+
+
+    await loadRuns();
+
+
+    form.reset();
+
+
+    modal.classList.remove('show');
+
+
+    alert('Run enviada com sucesso!');
+
+  }
+);
+
+
+/* CARREGAR RUNS */
+
+async function loadRuns(){
+
+  const {data,error} =
+    await supabaseClient
+      .from('runs')
+      .select('*')
+      .order('created_at',{
+        ascending:false
+      });
+
+
+  if(error){
+
+    console.error(error);
+
+    runsBody.innerHTML = `
+      <tr>
+        <td colspan="7" class="empty">
+          Erro ao carregar as runs.
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+
+  renderRuns(data || []);
+
+}
+
+
+/* MOSTRAR RUNS */
+
+function renderRuns(allRuns){
+
+  runsBody.innerHTML = '';
+
+
+  const filtered =
+    allRuns.filter(run =>
+
+      run.category === category &&
+      run.version === version &&
+      run.key_mode === keyMode
+
+    );
+
+
+  if(!filtered.length){
+
+    runsBody.innerHTML = `
+      <tr>
+        <td colspan="7" class="empty">
+          Nenhuma run enviada ainda.
+        </td>
+      </tr>
+    `;
+
+    return;
+
+  }
+
+
+  filtered.forEach((run,index) => {
+
+    const tr =
+      document.createElement('tr');
+
+
+    let videoButton = '—';
+
+
+    if(run.video){
+
+      videoButton = `
+        <button
+          class="watch"
+          onclick="watchVideo('${escapeHtml(run.video)}')">
+          ▶ Assistir
+        </button>
+      `;
+
+    }
+
+
+    let deleteButton = '—';
+
+
+    if(
+      currentUser &&
+      run.user_id === currentUser.id
+    ){
+
+      deleteButton = `
+        <button
+          class="danger"
+          onclick="deleteRun('${run.id}')">
+          Excluir
+        </button>
+      `;
+
+    }
+
+
+    tr.innerHTML = `
+
+      <td>${index + 1}</td>
+
+      <td class="player">
+        ${escapeHtml(run.player)}
+      </td>
+
+      <td class="date">
+        ${escapeHtml(run.date)}
+      </td>
+
+      <td>
+        ${escapeHtml(run.version)}
+      </td>
+
+      <td class="time">
+        ${escapeHtml(run.time)}
+      </td>
+
+      <td>
+        ${videoButton}
+      </td>
+
+      <td>
+        ${deleteButton}
+      </td>
+
+    `;
+
+
+    runsBody.appendChild(tr);
+
+  });
+
+}
+
+
+/* FILTROS */
+
+document.querySelectorAll('.filter')
+.forEach(button => {
+
+  button.onclick = () => {
+
+    document
+      .querySelectorAll('.filter')
+      .forEach(b =>
+        b.classList.remove('sel')
+      );
+
+
+    button.classList.add('sel');
+
+    category =
+      button.dataset.cat;
+
+
+    loadRuns();
+
+  };
+
+});
+
+
+document.querySelectorAll('.ver')
+.forEach(button => {
+
+  button.onclick = () => {
+
+    document
+      .querySelectorAll('.ver')
+      .forEach(b =>
+        b.classList.remove('sel')
+      );
+
+
+    button.classList.add('sel');
+
+    version =
+      button.dataset.v;
+
+
+    loadRuns();
+
+  };
+
+});
+
+
+document.getElementById('keys').onchange =
+(event) => {
+
+  keyMode =
+    event.target.value;
+
+  loadRuns();
+
+};
+
+
+/* EXCLUIR */
+
+async function deleteRun(id){
+
+  if(!currentUser){
+
+    return;
+
+  }
+
+
+  if(!confirm(
+    'Tem certeza que deseja excluir esta run?'
+  )){
+
+    return;
+
+  }
+
+
+  const {error} =
+    await supabaseClient
+      .from('runs')
+      .delete()
+      .eq('id',id);
+
+
+  if(error){
+
+    alert(
+      'Erro ao excluir: ' +
+      error.message
+    );
+
+    return;
+
+  }
+
+
+  await loadRuns();
+
+}
+
+
+/* VÍDEO DENTRO DO SITE */
+
+function watchVideo(url){
+
+  const videoId =
+    getYouTubeId(url);
+
+
+  if(!videoId){
+
+    alert(
+      'Coloque um link válido do YouTube.'
+    );
+
+    return;
+
+  }
+
+
+  videoFrame.src =
+    'https://www.youtube.com/embed/' +
+    videoId;
+
+
+  videoModal.classList.add('show');
+
+}
+
+
+/* PEGAR ID DO YOUTUBE */
+
+function getYouTubeId(url){
+
+  try{
+
+    const parsed =
+      new URL(url);
+
+
+    if(
+      parsed.hostname === 'youtu.be' ||
+      parsed.hostname.endsWith('.youtu.be')
+    ){
+
+      return parsed.pathname
+        .replace('/','');
+
+    }
+
+
+    if(
+      parsed.hostname.includes('youtube.com')
+    ){
+
+      return parsed.searchParams.get('v');
+
+    }
+
+
+    return null;
+
+  }catch{
+
+    return null;
+
+  }
+
+}
+
+
+/* FECHAR VÍDEO */
+
+document.getElementById('closeVideo').onclick =
+() => {
+
+  videoFrame.src = '';
+
+  videoModal.classList.remove('show');
+
+};
+
+
+/* ESCAPE HTML */
+
+function escapeHtml(text){
+
+  return String(text)
+
+    .replace(/&/g,'&amp;')
+
+    .replace(/</g,'&lt;')
+
+    .replace(/>/g,'&gt;')
+
+    .replace(/"/g,'&quot;')
+
+    .replace(/'/g,'&#039;');
+
+}
 
 </script>
 
 </body>
-      </html>                              </html>
+</html>                       </html>
