@@ -1,412 +1,359 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>RunnerBoards — Leaderboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SpeedRun Leaderboard</title>
 
 <style>
 *{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Arial,Helvetica,sans-serif;background:#520000;color:#fff}
-body{
-  background:
-    linear-gradient(180deg,rgba(90,0,0,.78),rgba(95,0,0,.92)),
-    radial-gradient(circle at 20% 20%,#d22 0 8%,transparent 25%),
-    linear-gradient(135deg,#8d0000,#4d0000);
-}
-button,input,select{font:inherit}
-button{cursor:pointer}
-.top{height:108px;background:#a90000;display:flex;align-items:center;padding:18px 28px;gap:18px;box-shadow:0 2px 10px #300}
-.logo{height:68px;width:130px;border:1px solid #e44;border-radius:8px;background:#980000;display:flex;align-items:center;gap:12px;padding:10px;font-size:35px}
-.hamb{font-size:32px}
-.topicons{margin-left:auto;display:flex;gap:20px;font-size:18px;align-items:center}
-.authbtn{background:#eee;color:#222;border:0;border-radius:8px;padding:10px 14px;font-weight:bold}
-.page{max-width:980px;margin:auto}
-.hero{margin-top:0;min-height:310px;padding:35px 28px 0;background:linear-gradient(180deg,#a30b0b,#750000);border-radius:0 0 10px 10px}
-.game{display:flex;gap:25px;align-items:center}
-.icon{width:124px;height:124px;border-radius:10px;background:linear-gradient(135deg,#42b5ff,#ffe36a);display:flex;align-items:center;justify-content:center;font-size:62px;flex:none}
-h1{font-size:32px;margin:0 0 15px}
-.pills{display:flex;flex-wrap:wrap;gap:8px}
-.pill{background:#ddd;color:#444;border-radius:10px;padding:9px 13px}
-.boost{margin-top:35px;background:#ff4a4a;border:0;border-radius:8px;color:white;padding:13px 22px;font-size:23px;font-weight:bold}
-.tabs{display:flex;gap:36px;margin-top:28px;border-bottom:3px solid #a22;padding:0 12px}
-.tab{padding:18px 0;font-size:24px}
-.active{border-bottom:4px solid #fff}
-.panel{margin:30px 14px;background:rgba(145,0,0,.88);border:1px solid #b72;border-radius:10px;padding:14px}
-.filters{display:flex;flex-wrap:wrap;gap:10px}
-.filter{border:0;border-radius:9px;padding:15px 18px;background:#610000;color:#fff;font-weight:bold;font-size:18px}
-.filter.sel{background:#eee;color:#222}
-label{display:block;color:#ddd;font-size:19px;margin:18px 0 8px}
-select,.field{width:100%;background:#570000;color:#eee;border:1px solid #8c2222;border-radius:8px;padding:15px;font-size:18px}
-.versions{display:flex;max-width:430px;background:#570000;border-radius:9px;overflow:hidden}
-.ver{flex:1;border:0;background:transparent;color:#ddd;padding:14px 10px;font-weight:bold;font-size:18px}
-.ver.sel{background:#eee;color:#222;border-radius:8px}
-.switch{display:flex;background:#570000;border-radius:9px;overflow:hidden;margin-top:18px}
-.switch button{flex:1;padding:14px;border:0;background:transparent;color:#ddd;font-weight:bold}
-.switch .sel{background:#eee;color:#222;border-radius:8px}
-.actions{display:flex;gap:10px;margin:14px 0}
-.small{width:86px;background:#650000;border:1px solid #a33;color:white;border-radius:8px;font-size:23px}
-.submit{flex:1;background:#eee;color:#222;border:0;border-radius:8px;font-weight:bold;font-size:21px;padding:13px}
-table{width:100%;border-collapse:collapse;margin-top:8px;min-width:680px}
-th,td{padding:16px 10px;text-align:left;border-bottom:1px solid rgba(255,255,255,.08)}
-th{font-size:19px}
-td{font-size:18px}
-.scroll{overflow-x:auto}
-.rank{width:45px}
-.player{font-weight:bold}
-.date{color:#eee}
-.time{text-align:right;white-space:nowrap}
-.empty{text-align:center;padding:35px;color:#ddd}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:20px;z-index:20}
-.modal.show{display:flex}
-.modalbox{width:min(900px,100%);background:#700000;border-radius:12px;padding:16px}
-.close{float:right;background:#420000;color:white;border:0;border-radius:50%;width:40px;height:40px;font-size:22px}
-.video{position:relative;padding-top:56.25%;margin-top:12px}
-.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0;border-radius:8px}
-.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.full{grid-column:1/-1}
-.danger{background:#450000;color:#ffb0b0;border:1px solid #a44;padding:11px;border-radius:8px}
-.watch{background:#eee;color:#222;border:0;border-radius:8px;padding:9px 12px;font-weight:bold}
-.authbox{width:min(450px,100%);background:#700000;border-radius:12px;padding:22px}
-.authbox h2{margin-top:0}
-.authbox button{margin-top:12px}
-.authmessage{margin-top:12px;color:#ddd}
-.useremail{font-size:14px;color:#fff}
-.accountemail{background:#4d0000;border:1px solid #a33;border-radius:8px;padding:12px;margin:10px 0;color:#fff}
 
-@media(max-width:650px){
-.top{height:88px;padding:12px 16px}
-.logo{width:130px}
-.topicons{gap:8px}
-.hero{padding:28px 18px 0}
-.game{gap:14px}
-.icon{width:95px;height:95px;font-size:45px}
-h1{font-size:25px}
-.panel{margin:18px 8px}
-.formgrid{grid-template-columns:1fr}
-.full{grid-column:auto}
-.tabs{gap:20px}
-.tab{font-size:18px}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#120808;
+  color:white;
+}
+
+header{
+  background:linear-gradient(135deg,#8b0000,#420000);
+  padding:25px 20px;
+  text-align:center;
+  border-bottom:2px solid #b30000;
+}
+
+header h1{
+  margin:0;
+  font-size:32px;
+}
+
+header p{
+  margin:8px 0 0;
+  color:#ddd;
+}
+
+.container{
+  max-width:1100px;
+  margin:25px auto;
+  padding:0 15px;
+}
+
+.top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+  flex-wrap:wrap;
+}
+
+button{
+  border:0;
+  border-radius:8px;
+  padding:11px 16px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.submit{
+  background:#c40000;
+  color:white;
+}
+
+.submit:hover{
+  background:#e00000;
+}
+
+.ranking{
+  background:#1d0d0d;
+  border:1px solid #4d2020;
+  border-radius:12px;
+  overflow:hidden;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:55px 1fr 130px 150px 120px 120px;
+  align-items:center;
+  gap:10px;
+  padding:15px;
+  border-bottom:1px solid #3b1818;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.head{
+  background:#320909;
+  font-weight:bold;
+}
+
+.position{
+  font-size:20px;
+  font-weight:bold;
+  text-align:center;
+}
+
+.time{
+  font-weight:bold;
+  color:#ffb3b3;
+}
+
+.country{
+  display:flex;
+  align-items:center;
+  gap:7px;
+}
+
+.sent{
+  color:#aaa;
+  font-size:14px;
+}
+
+.watch{
+  background:#eee;
+  color:#111;
+}
+
+.watch:hover{
+  background:white;
+}
+
+.empty{
+  padding:35px;
+  text-align:center;
+  color:#aaa;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.8);
+  justify-content:center;
+  align-items:center;
+  padding:15px;
+  z-index:100;
+}
+
+.modalbox{
+  width:100%;
+  max-width:500px;
+  background:#1d0d0d;
+  border:1px solid #6b2020;
+  border-radius:12px;
+  padding:22px;
+  position:relative;
+}
+
+.modalbox h2{
+  margin-top:0;
+}
+
+.close{
+  position:absolute;
+  right:12px;
+  top:10px;
+  background:#550000;
+  color:white;
+  font-size:20px;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  margin:7px 0 14px;
+  border-radius:7px;
+  border:1px solid #663333;
+  background:#120808;
+  color:white;
+}
+
+.formbutton{
+  width:100%;
+  background:#c40000;
+  color:white;
+}
+
+.video{
+  position:relative;
+  width:100%;
+  padding-top:56.25%;
+}
+
+.video iframe{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  border:0;
+  border-radius:8px;
+}
+
+@media(max-width:850px){
+
+  .row{
+    grid-template-columns:45px 1fr 110px 110px;
+  }
+
+  .head div:nth-child(4),
+  .head div:nth-child(5),
+  .row div:nth-child(4),
+  .row div:nth-child(5){
+    display:none;
+  }
+}
+
+@media(max-width:550px){
+
+  .row{
+    grid-template-columns:40px 1fr 100px;
+  }
+
+  .head div:nth-child(4),
+  .head div:nth-child(5),
+  .head div:nth-child(6),
+  .row div:nth-child(4),
+  .row div:nth-child(5),
+  .row div:nth-child(6){
+    display:none;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<header class="top">
-
-  <div class="logo">
-    🏆 <span class="hamb">☰</span>
-  </div>
-
-  <div class="topicons">
-
-    <span id="userEmail" class="useremail"></span>
-
-    <button class="authbtn" id="loginBtn">
-      Entrar
-    </button>
-
-    <button class="authbtn" id="logoutBtn" style="display:none">
-      Sair
-    </button>
-
-  </div>
-
+<header>
+  <h1>🏆 SpeedRun Leaderboard</h1>
+  <p>Ranking mundial de speedruns</p>
 </header>
 
+<div class="container">
 
-<main class="page">
+  <div class="top">
+    <h2>Ranking</h2>
 
-<section class="hero">
+    <button class="submit" onclick="openSubmit()">
+      + Enviar corrida
+    </button>
+  </div>
 
-  <div class="game">
+  <div class="ranking">
 
-    <div class="icon">🏃</div>
-
-    <div>
-
-      <h1>
-        Subway Surfers
-        <span style="font-weight:normal">(2012)</span>
-      </h1>
-
-      <div class="pills">
-        <span class="pill">Android</span>
-        <span class="pill">iOS</span>
-        <span class="pill">WindowsPhone</span>
-        <span class="pill">Web</span>
-      </div>
-
+    <div class="row head">
+      <div>#</div>
+      <div>Jogador</div>
+      <div>Tempo</div>
+      <div>País</div>
+      <div>Vídeo</div>
+      <div>Enviada</div>
     </div>
 
-  </div>
-
-  <button class="boost">
-    🛹 Boost　65
-  </button>
-
-  <div class="tabs">
-    <div class="tab active">Leaderboards</div>
-    <div class="tab">News　21</div>
-    <div class="tab">Guides　7</div>
-    <div class="tab">•••</div>
-  </div>
-
-</section>
-
-
-<section class="panel">
-
-  <div class="filters">
-
-    <button class="filter sel" data-cat="No Coins">No Coins</button>
-    <button class="filter" data-cat="Coins">Coins</button>
-    <button class="filter" data-cat="Mystery Hurdles">Mystery Hurdles</button>
-    <button class="filter" data-cat="Score (x38-)">Score (x38-)</button>
-    <button class="filter" data-cat="Score (x39+)">Score (x39+)</button>
-    <button class="filter" data-cat="All Powerups">All Powerups</button>
-    <button class="filter" data-cat="Any%">Any%</button>
-    <button class="filter" data-cat="Obtain Item">Obtain Item</button>
-    <button class="filter" data-cat="Mystery box">Mystery box</button>
-
-  </div>
-
-
-  <label>No Coin</label>
-
-  <select id="keys">
-    <option>No Hoverboard/No Keys</option>
-    <option>Hoverboard</option>
-    <option>Keys</option>
-    <option>Hoverboard + Keys</option>
-  </select>
-
-
-  <label>Version</label>
-
-  <div class="versions">
-
-    <button class="ver sel" data-v="Mobile">Mobile</button>
-    <button class="ver" data-v="Emulator">Emulator</button>
-    <button class="ver" data-v="Web">Web</button>
-    <button class="ver" data-v="iOS">iOS</button>
-
-  </div>
-
-
-  <div class="switch">
-
-    <button class="sel">
-      ☷　Leaderboard
-    </button>
-
-    <button>
-      ◷　History
-    </button>
-
-  </div>
-
-
-  <div class="actions">
-
-    <button class="small">
-      ☷
-    </button>
-
-    <button class="small">
-      📖
-    </button>
-
-    <button class="submit" id="openForm">
-      ⊕　Submit run
-    </button>
-
-  </div>
-
-
-  <div class="scroll">
-
-    <table>
-
-      <thead>
-
-        <tr>
-          <th class="rank">#</th>
-          <th>Player</th>
-          <th>Date</th>
-          <th>Version</th>
-          <th class="time">Time</th>
-          <th>Video</th>
-          <th>Excluir</th>
-        </tr>
-
-      </thead>
-
-      <tbody id="runs"></tbody>
-
-    </table>
-
-  </div>
-
-</section>
-
-</main>
-
-
-<!-- LOGIN -->
-
-<div class="modal" id="authModal">
-
-  <div class="authbox">
-
-    <button class="close" id="closeAuth">
-      ×
-    </button>
-
-    <h2>Entrar no RunnerBoards</h2>
-
-    <label>E-mail</label>
-
-    <input
-      class="field"
-      id="authEmail"
-      type="email"
-      placeholder="seu@email.com">
-
-    <label>Senha</label>
-
-    <input
-      class="field"
-      id="authPassword"
-      type="password"
-      placeholder="Sua senha">
-
-    <button class="submit" id="signInBtn">
-      Entrar
-    </button>
-
-    <button class="submit" id="signUpBtn">
-      Criar conta
-    </button>
-
-    <button class="submit" id="googleBtn">
-      Continuar com Google
-    </button>
-
-    <div class="authmessage" id="authMessage"></div>
+    <div id="rankingList"></div>
 
   </div>
 
 </div>
 
 
-<!-- SUBMIT RUN -->
-
-<div class="modal" id="modal">
+<!-- MODAL ENVIAR -->
+<div class="modal" id="submitModal">
 
   <div class="modalbox">
 
-    <button class="close" id="close">
-      ×
+    <button class="close" onclick="closeSubmit()">×</button>
+
+    <h2>Enviar corrida</h2>
+
+    <label>Jogador</label>
+    <input
+      id="player"
+      placeholder="Nome do jogador">
+
+    <label>Tempo</label>
+    <input
+      id="time"
+      placeholder="Ex: 14:39.383">
+
+    <label>País</label>
+
+    <select id="country">
+
+      <option value="🇧🇷 Brasil">
+        🇧🇷 Brasil
+      </option>
+
+      <option value="🇺🇸 Estados Unidos">
+        🇺🇸 Estados Unidos
+      </option>
+
+      <option value="🇬🇧 Reino Unido">
+        🇬🇧 Reino Unido
+      </option>
+
+      <option value="🇨🇦 Canadá">
+        🇨🇦 Canadá
+      </option>
+
+      <option value="🇯🇵 Japão">
+        🇯🇵 Japão
+      </option>
+
+      <option value="🇩🇪 Alemanha">
+        🇩🇪 Alemanha
+      </option>
+
+      <option value="🇫🇷 França">
+        🇫🇷 França
+      </option>
+
+      <option value="🇪🇸 Espanha">
+        🇪🇸 Espanha
+      </option>
+
+      <option value="🇮🇹 Itália">
+        🇮🇹 Itália
+      </option>
+
+      <option value="🌎 Outro">
+        🌎 Outro
+      </option>
+
+    </select>
+
+    <label>Link do vídeo</label>
+
+    <input
+      id="video"
+      placeholder="https://youtube.com/...">
+
+    <button
+      class="formbutton"
+      onclick="submitRun()">
+
+      Enviar corrida
+
     </button>
-
-    <h2>Submit run</h2>
-
-    <div class="accountemail" id="accountEmail">
-      Não conectado
-    </div>
-
-    <form id="runForm">
-
-      <div class="formgrid">
-
-        <div>
-
-          <label>Player</label>
-
-          <input
-            class="field"
-            id="player"
-            name="player"
-            placeholder="Nome do jogador"
-            required>
-
-        </div>
-
-
-        <div>
-
-          <label>Time</label>
-
-          <input
-            class="field"
-            id="time"
-            name="time"
-            placeholder="3h 30m 52s 400ms"
-            required>
-
-        </div>
-
-
-        <div>
-
-          <label>Date</label>
-
-          <input
-            class="field"
-            id="date"
-            name="date"
-            type="date"
-            required>
-
-        </div>
-
-
-        <div>
-
-          <label>Video</label>
-
-          <input
-            class="field"
-            id="video"
-            name="video"
-            type="url"
-            placeholder="https://youtube.com/...">
-
-        </div>
-
-      </div>
-
-      <br>
-
-      <button
-        class="submit"
-        id="sendRun"
-        type="submit">
-
-        Enviar run
-
-      </button>
-
-    </form>
 
   </div>
 
 </div>
 
 
-<!-- VIDEO DENTRO DO SITE -->
-
+<!-- MODAL VÍDEO -->
 <div class="modal" id="videoModal">
 
   <div class="modalbox">
 
-    <button class="close" id="closeVideo">
+    <button
+      class="close"
+      onclick="closeVideo()">
       ×
     </button>
 
-    <h2>Assistir run</h2>
+    <h2>Assistir corrida</h2>
 
     <div class="video">
 
@@ -423,776 +370,451 @@ h1{font-size:25px}
 </div>
 
 
-<!-- SUPABASE -->
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script>
 
-const SUPABASE_URL =
-  'https://tudtuikuvwtbauiqcwkz.supabase.co';
-
-
-/*
-  IMPORTANTE:
-  COLE AQUI A SUA PUBLISHABLE KEY.
-
-  NÃO coloque sb_secret_...
-*/
-
-const SUPABASE_KEY =
-  'COLE_AQUI_SUA_PUBLISHABLE_KEY';
-
-
-const supabaseClient =
-  window.supabase.createClient(
-    SUPABASE_URL,
-    SUPABASE_KEY
-  );
-
-
-let currentUser = null;
-
-let category = 'No Coins';
-
-let version = 'Mobile';
-
-let keyMode = 'No Hoverboard/No Keys';
-
-
-const modal =
-  document.getElementById('modal');
-
-const authModal =
-  document.getElementById('authModal');
-
-const videoModal =
-  document.getElementById('videoModal');
-
-const videoFrame =
-  document.getElementById('videoFrame');
-
-const runsBody =
-  document.getElementById('runs');
-
-const form =
-  document.getElementById('runForm');
-
-const loginBtn =
-  document.getElementById('loginBtn');
-
-const logoutBtn =
-  document.getElementById('logoutBtn');
-
-const userEmail =
-  document.getElementById('userEmail');
-
-const authMessage =
-  document.getElementById('authMessage');
-
-const accountEmail =
-  document.getElementById('accountEmail');
-
-
-/* LOGIN */
-
-loginBtn.onclick = () => {
-
-  authModal.classList.add('show');
-
-};
-
-
-document.getElementById('closeAuth').onclick = () => {
-
-  authModal.classList.remove('show');
-
-};
-
-
-/* CRIAR CONTA */
-
-document.getElementById('signUpBtn').onclick =
-async () => {
-
-  const email =
-    document.getElementById('authEmail').value.trim();
-
-  const password =
-    document.getElementById('authPassword').value;
-
-
-  if(!email || !password){
-
-    authMessage.textContent =
-      'Digite seu e-mail e sua senha.';
-
-    return;
-
-  }
-
-
-  const {error} =
-    await supabaseClient.auth.signUp({
-      email: email,
-      password: password
-    });
-
-
-  if(error){
-
-    authMessage.textContent =
-      error.message;
-
-    return;
-
-  }
-
-
-  authMessage.textContent =
-    'Conta criada! Verifique seu e-mail se o Supabase solicitar.';
-
-};
-
-
-/* ENTRAR COM E-MAIL */
-
-document.getElementById('signInBtn').onclick =
-async () => {
-
-  const email =
-    document.getElementById('authEmail').value.trim();
-
-  const password =
-    document.getElementById('authPassword').value;
-
-
-  const {error} =
-    await supabaseClient.auth.signInWithPassword({
-
-      email: email,
-
-      password: password
-
-    });
-
-
-  if(error){
-
-    authMessage.textContent =
-      error.message;
-
-    return;
-
-  }
-
-
-  authModal.classList.remove('show');
-
-};
-
-
-/* GOOGLE */
-
-document.getElementById('googleBtn').onclick =
-async () => {
-
-  const {error} =
-    await supabaseClient.auth.signInWithOAuth({
-
-      provider: 'google',
-
-      options: {
-        redirectTo: window.location.origin
-      }
-
-    });
-
-
-  if(error){
-
-    authMessage.textContent =
-      error.message;
-
-  }
-
-};
-
-
-/* SAIR */
-
-logoutBtn.onclick =
-async () => {
-
-  await supabaseClient.auth.signOut();
-
-};
-
-
-/* USUÁRIO */
-
-function updateUser(session){
-
-  currentUser =
-    session ? session.user : null;
-
-
-  if(currentUser){
-
-    userEmail.textContent =
-      currentUser.email || '';
-
-
-    loginBtn.style.display =
-      'none';
-
-
-    logoutBtn.style.display =
-      'inline-block';
-
-
-    accountEmail.textContent =
-      'Conta: ' + (currentUser.email || '');
-
-  }else{
-
-    userEmail.textContent =
-      '';
-
-
-    loginBtn.style.display =
-      'inline-block';
-
-
-    logoutBtn.style.display =
-      'none';
-
-
-    accountEmail.textContent =
-      'Não conectado';
-
-  }
-
-}
-
-
-/* SESSÃO */
-
-supabaseClient.auth.getSession()
-.then(({data}) => {
-
-  updateUser(data.session);
-
-  loadRuns();
-
-});
-
-
-supabaseClient.auth.onAuthStateChange(
-  (_event, session) => {
-
-    updateUser(session);
-
-    loadRuns();
-
-  }
+let runs = JSON.parse(
+  localStorage.getItem("speedrunRuns") || "[]"
 );
 
 
-/* ABRIR SUBMIT */
+/* ABRIR FORMULÁRIO */
 
-document.getElementById('openForm').onclick =
-() => {
+function openSubmit(){
 
-  if(!currentUser){
-
-    authModal.classList.add('show');
-
-    authMessage.textContent =
-      'Entre na sua conta antes de enviar uma run.';
-
-    return;
-
-  }
+  document.getElementById(
+    "submitModal"
+  ).style.display="flex";
+}
 
 
-  modal.classList.add('show');
+/* FECHAR FORMULÁRIO */
 
+function closeSubmit(){
 
-  document.getElementById('date').value =
-    new Date().toISOString().slice(0,10);
-
-
-  accountEmail.textContent =
-    'Enviando como: ' + currentUser.email;
-
-};
-
-
-/* FECHAR */
-
-document.getElementById('close').onclick =
-() => {
-
-  modal.classList.remove('show');
-
-};
+  document.getElementById(
+    "submitModal"
+  ).style.display="none";
+}
 
 
 /* ENVIAR RUN */
 
-form.addEventListener(
-  'submit',
-  async (event) => {
+function submitRun(){
 
-    event.preventDefault();
+  const player =
+    document.getElementById("player")
+    .value.trim();
 
+  const time =
+    document.getElementById("time")
+    .value.trim();
 
-    if(!currentUser){
+  const country =
+    document.getElementById("country")
+    .value;
 
-      alert('Entre na sua conta primeiro.');
+  const video =
+    document.getElementById("video")
+    .value.trim();
 
-      return;
 
-    }
-
-
-    const player =
-      document.getElementById('player').value.trim();
-
-    const time =
-      document.getElementById('time').value.trim();
-
-    const date =
-      document.getElementById('date').value;
-
-    const video =
-      document.getElementById('video').value.trim();
-
-
-    const sendRun =
-      document.getElementById('sendRun');
-
-
-    sendRun.disabled = true;
-
-    sendRun.textContent =
-      'Enviando...';
-
-
-    const {error} =
-      await supabaseClient
-        .from('runs')
-        .insert({
-
-          user_id: currentUser.id,
-
-          player: player,
-
-          time: time,
-
-          date: date,
-
-          video: video || null,
-
-          category: category,
-
-          version: version,
-
-          key_mode: keyMode
-
-        });
-
-
-    sendRun.disabled = false;
-
-    sendRun.textContent =
-      'Enviar run';
-
-
-    if(error){
-
-      console.error(error);
-
-      alert(
-        'Erro ao enviar a run:\n' +
-        error.message
-      );
-
-      return;
-
-    }
-
-
-    await loadRuns();
-
-
-    form.reset();
-
-
-    modal.classList.remove('show');
-
-
-    alert('Run enviada com sucesso!');
-
-  }
-);
-
-
-/* CARREGAR RUNS */
-
-async function loadRuns(){
-
-  const {data,error} =
-    await supabaseClient
-      .from('runs')
-      .select('*')
-      .order('created_at',{
-        ascending:false
-      });
-
-
-  if(error){
-
-    console.error(error);
-
-    runsBody.innerHTML = `
-      <tr>
-        <td colspan="7" class="empty">
-          Erro ao carregar as runs.
-        </td>
-      </tr>
-    `;
-
-    return;
-
-  }
-
-
-  renderRuns(data || []);
-
-}
-
-
-/* MOSTRAR RUNS */
-
-function renderRuns(allRuns){
-
-  runsBody.innerHTML = '';
-
-
-  const filtered =
-    allRuns.filter(run =>
-
-      run.category === category &&
-      run.version === version &&
-      run.key_mode === keyMode
-
-    );
-
-
-  if(!filtered.length){
-
-    runsBody.innerHTML = `
-      <tr>
-        <td colspan="7" class="empty">
-          Nenhuma run enviada ainda.
-        </td>
-      </tr>
-    `;
-
-    return;
-
-  }
-
-
-  filtered.forEach((run,index) => {
-
-    const tr =
-      document.createElement('tr');
-
-
-    let videoButton = '—';
-
-
-    if(run.video){
-
-      videoButton = `
-        <button
-          class="watch"
-          onclick="watchVideo('${escapeHtml(run.video)}')">
-          ▶ Assistir
-        </button>
-      `;
-
-    }
-
-
-    let deleteButton = '—';
-
-
-    if(
-      currentUser &&
-      run.user_id === currentUser.id
-    ){
-
-      deleteButton = `
-        <button
-          class="danger"
-          onclick="deleteRun('${run.id}')">
-          Excluir
-        </button>
-      `;
-
-    }
-
-
-    tr.innerHTML = `
-
-      <td>${index + 1}</td>
-
-      <td class="player">
-        ${escapeHtml(run.player)}
-      </td>
-
-      <td class="date">
-        ${escapeHtml(run.date)}
-      </td>
-
-      <td>
-        ${escapeHtml(run.version)}
-      </td>
-
-      <td class="time">
-        ${escapeHtml(run.time)}
-      </td>
-
-      <td>
-        ${videoButton}
-      </td>
-
-      <td>
-        ${deleteButton}
-      </td>
-
-    `;
-
-
-    runsBody.appendChild(tr);
-
-  });
-
-}
-
-
-/* FILTROS */
-
-document.querySelectorAll('.filter')
-.forEach(button => {
-
-  button.onclick = () => {
-
-    document
-      .querySelectorAll('.filter')
-      .forEach(b =>
-        b.classList.remove('sel')
-      );
-
-
-    button.classList.add('sel');
-
-    category =
-      button.dataset.cat;
-
-
-    loadRuns();
-
-  };
-
-});
-
-
-document.querySelectorAll('.ver')
-.forEach(button => {
-
-  button.onclick = () => {
-
-    document
-      .querySelectorAll('.ver')
-      .forEach(b =>
-        b.classList.remove('sel')
-      );
-
-
-    button.classList.add('sel');
-
-    version =
-      button.dataset.v;
-
-
-    loadRuns();
-
-  };
-
-});
-
-
-document.getElementById('keys').onchange =
-(event) => {
-
-  keyMode =
-    event.target.value;
-
-  loadRuns();
-
-};
-
-
-/* EXCLUIR */
-
-async function deleteRun(id){
-
-  if(!currentUser){
-
-    return;
-
-  }
-
-
-  if(!confirm(
-    'Tem certeza que deseja excluir esta run?'
-  )){
-
-    return;
-
-  }
-
-
-  const {error} =
-    await supabaseClient
-      .from('runs')
-      .delete()
-      .eq('id',id);
-
-
-  if(error){
+  if(!player || !time){
 
     alert(
-      'Erro ao excluir: ' +
-      error.message
+      "Preencha o jogador e o tempo."
     );
 
     return;
+  }
+
+
+  const run = {
+
+    id:Date.now(),
+
+    player:player,
+
+    time:time,
+
+    country:country,
+
+    video:video,
+
+    createdAt:Date.now()
+
+  };
+
+
+  runs.push(run);
+
+
+  localStorage.setItem(
+    "speedrunRuns",
+    JSON.stringify(runs)
+  );
+
+
+  closeSubmit();
+
+
+  document.getElementById(
+    "player"
+  ).value="";
+
+  document.getElementById(
+    "time"
+  ).value="";
+
+  document.getElementById(
+    "video"
+  ).value="";
+
+
+  renderRanking();
+
+  alert(
+    "Corrida enviada com sucesso!"
+  );
+}
+
+
+/* TRANSFORMAR TEMPO EM MILISSEGUNDOS */
+
+function timeToMilliseconds(time){
+
+  const parts =
+    time.split(":");
+
+
+  if(parts.length === 2){
+
+    const minutes =
+      parseInt(parts[0]) || 0;
+
+    const seconds =
+      parseFloat(parts[1]) || 0;
+
+    return (
+      minutes * 60000 +
+      seconds * 1000
+    );
+  }
+
+
+  return (
+    parseFloat(time) ||
+    999999999
+  );
+}
+
+
+/* TEMPO DESDE O ENVIO */
+
+function timeAgo(timestamp){
+
+  const seconds =
+    Math.floor(
+      (Date.now() - timestamp) / 1000
+    );
+
+
+  if(seconds < 60){
+
+    return "Agora";
+  }
+
+
+  const minutes =
+    Math.floor(seconds / 60);
+
+
+  if(minutes < 60){
+
+    return (
+      "há " +
+      minutes +
+      " " +
+      (minutes === 1
+        ? "minuto"
+        : "minutos")
+    );
+  }
+
+
+  const hours =
+    Math.floor(minutes / 60);
+
+
+  if(hours < 24){
+
+    return (
+      "há " +
+      hours +
+      " " +
+      (hours === 1
+        ? "hora"
+        : "horas")
+    );
+  }
+
+
+  const days =
+    Math.floor(hours / 24);
+
+
+  if(days < 30){
+
+    return (
+      "há " +
+      days +
+      " " +
+      (days === 1
+        ? "dia"
+        : "dias")
+    );
+  }
+
+
+  const months =
+    Math.floor(days / 30);
+
+
+  if(months < 12){
+
+    return (
+      "há " +
+      months +
+      " " +
+      (months === 1
+        ? "mês"
+        : "meses")
+    );
+  }
+
+
+  const years =
+    Math.floor(months / 12);
+
+
+  return (
+    "há " +
+    years +
+    " " +
+    (years === 1
+      ? "ano"
+      : "anos")
+  );
+}
+
+
+/* MOSTRAR RANKING */
+
+function renderRanking(){
+
+  const list =
+    document.getElementById(
+      "rankingList"
+    );
+
+
+  if(runs.length === 0){
+
+    list.innerHTML =
+      '<div class="empty">' +
+      'Nenhuma corrida enviada ainda.' +
+      '</div>';
+
+    return;
+  }
+
+
+  const sorted =
+    [...runs].sort(
+
+      (a,b) =>
+
+        timeToMilliseconds(a.time) -
+        timeToMilliseconds(b.time)
+
+    );
+
+
+  list.innerHTML =
+
+    sorted.map(
+      (run,index) => `
+
+      <div class="row">
+
+        <div class="position">
+          ${index + 1}
+        </div>
+
+        <div>
+          ${escapeHtml(run.player)}
+        </div>
+
+        <div class="time">
+          ${escapeHtml(run.time)}
+        </div>
+
+        <div class="country">
+          ${escapeHtml(run.country)}
+        </div>
+
+        <div>
+
+          ${
+            run.video
+
+            ?
+
+            `<button
+              class="watch"
+              onclick="watchVideo('${encodeURIComponent(run.video)}')">
+              ▶ Assistir
+            </button>`
+
+            :
+
+            "-"
+          }
+
+        </div>
+
+        <div class="sent">
+
+          ${
+            run.createdAt
+              ? timeAgo(run.createdAt)
+              : "Data antiga"
+          }
+
+        </div>
+
+      </div>
+
+    `
+    ).join("");
+}
+
+
+/* ABRIR VÍDEO */
+
+function watchVideo(encodedUrl){
+
+  const url =
+    decodeURIComponent(encodedUrl);
+
+
+  let videoId = "";
+
+
+  if(url.includes("youtu.be/")){
+
+    videoId =
+      url
+      .split("youtu.be/")[1]
+      .split(/[?&]/)[0];
 
   }
 
 
-  await loadRuns();
+  else if(
+    url.includes("youtube.com/watch")
+  ){
 
-}
+    const params =
+      new URL(url).searchParams;
+
+    videoId =
+      params.get("v");
+
+  }
 
 
-/* VÍDEO DENTRO DO SITE */
+  else if(
+    url.includes("youtube.com/shorts/")
+  ){
 
-function watchVideo(url){
+    videoId =
+      url
+      .split("/shorts/")[1]
+      .split(/[?&]/)[0];
 
-  const videoId =
-    getYouTubeId(url);
+  }
 
 
   if(!videoId){
 
-    alert(
-      'Coloque um link válido do YouTube.'
+    window.open(
+      url,
+      "_blank"
     );
 
     return;
-
   }
 
 
-  videoFrame.src =
-    'https://www.youtube.com/embed/' +
+  document.getElementById(
+    "videoFrame"
+  ).src =
+    "https://www.youtube.com/embed/" +
     videoId;
 
 
-  videoModal.classList.add('show');
-
-}
-
-
-/* PEGAR ID DO YOUTUBE */
-
-function getYouTubeId(url){
-
-  try{
-
-    const parsed =
-      new URL(url);
-
-
-    if(
-      parsed.hostname === 'youtu.be' ||
-      parsed.hostname.endsWith('.youtu.be')
-    ){
-
-      return parsed.pathname
-        .replace('/','');
-
-    }
-
-
-    if(
-      parsed.hostname.includes('youtube.com')
-    ){
-
-      return parsed.searchParams.get('v');
-
-    }
-
-
-    return null;
-
-  }catch{
-
-    return null;
-
-  }
-
+  document.getElementById(
+    "videoModal"
+  ).style.display="flex";
 }
 
 
 /* FECHAR VÍDEO */
 
-document.getElementById('closeVideo').onclick =
-() => {
+function closeVideo(){
 
-  videoFrame.src = '';
-
-  videoModal.classList.remove('show');
-
-};
+  document.getElementById(
+    "videoFrame"
+  ).src="";
 
 
-/* ESCAPE HTML */
+  document.getElementById(
+    "videoModal"
+  ).style.display="none";
+}
+
+
+/* PROTEGER TEXTO DO HTML */
 
 function escapeHtml(text){
 
   return String(text)
 
-    .replace(/&/g,'&amp;')
+    .replace(/&/g,"&amp;")
 
-    .replace(/</g,'&lt;')
+    .replace(/</g,"&lt;")
 
-    .replace(/>/g,'&gt;')
+    .replace(/>/g,"&gt;")
 
-    .replace(/"/g,'&quot;')
+    .replace(/"/g,"&quot;")
 
-    .replace(/'/g,'&#039;');
-
+    .replace(/'/g,"&#039;");
 }
+
+
+/* ATUALIZAR O "HÁ X TEMPO" */
+
+setInterval(
+  renderRanking,
+  60000
+);
+
+
+/* CARREGAR RANKING */
+
+renderRanking();
 
 </script>
 
 </body>
-</html>                       </html>
+</html>
